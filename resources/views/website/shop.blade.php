@@ -1,154 +1,167 @@
 @extends('layouts.app')
 
 @section('content')
-  <section class="page-hero page-hero--shop">
-    <div class="container">
-      <div class="page-hero__content">
-        <span class="eyebrow">Catalogue</span>
-        <h1>Shop modern essentials with a premium storefront feel.</h1>
-        <p>Browse curated edits, stronger product presentation, and cleaner ecommerce browsing across every category.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="store-section">
-    <div class="container shop-layout">
-      <aside class="filter-card">
-        <div class="filter-card__block">
-          <h3>Categories</h3>
-          <a href="#">Women</a>
-          <a href="#">Men</a>
-          <a href="#">Outerwear</a>
-          <a href="#">Footwear</a>
-          <a href="#">Accessories</a>
+    <section class="page-hero page-hero--shop">
+        <div class="container">
+            <div class="page-hero__content">
+                <span class="eyebrow">Catalogue</span>
+                <h1>Shop modern essentials with a premium storefront feel.</h1>
+                <p>Browse curated edits, stronger product presentation, and cleaner ecommerce browsing across every category.</p>
+            </div>
         </div>
+    </section>
 
-        <div class="filter-card__block">
-          <h3>Price</h3>
-          <a href="#">Under $25</a>
-          <a href="#">$25 - $50</a>
-          <a href="#">$50 - $100</a>
-          <a href="#">Above $100</a>
+    <section class="store-section">
+        <div class="container shop-layout">
+
+            <!-- FILTER -->
+            <aside class="filter-card">
+                <div class="filter-card__block">
+                    <h3>Categories</h3>
+                    <a href="#">Women</a>
+                    <a href="#">Men</a>
+                    <a href="#">Outerwear</a>
+                    <a href="#">Footwear</a>
+                    <a href="#">Accessories</a>
+                </div>
+            </aside>
+
+            <!-- PRODUCTS -->
+            <div>
+                <div class="section-heading section-heading--compact">
+                    <div>
+                        <span class="eyebrow" id="productCount">Loading...</span>
+                        <h2>Best sellers and new-season picks</h2>
+                    </div>
+                </div>
+
+                <div class="product-grid" id="productGrid">
+                    <p>Loading products...</p>
+                </div>
+            </div>
+
         </div>
+    </section>
 
-        <div class="filter-card__block">
-          <h3>Highlights</h3>
-          <a href="#">New arrivals</a>
-          <a href="#">Best sellers</a>
-          <a href="#">Limited stock</a>
-        </div>
-      </aside>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchProducts();
+        });
 
-      <div>
-        <div class="section-heading section-heading--compact">
-          <div>
-            <span class="eyebrow">36 products</span>
-            <h2>Best sellers and new-season picks</h2>
-          </div>
-          <div class="sort-chip">Sort: Featured</div>
-        </div>
+        /* ================= FETCH PRODUCTS ================= */
+        function fetchProducts(page = 1) {
+            fetch(`http://127.0.0.1:8000/api/product?page=${page}`)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status) {
+                        document.getElementById("productCount").innerText = result.data.total + " products";
+                        renderProducts(result.data.data);
+                    } else {
+                        document.getElementById("productGrid").innerHTML = "<p>Failed to load products</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    document.getElementById("productGrid").innerHTML = "<p>Error loading products</p>";
+                });
+        }
 
-        <div class="product-grid">
-          <article class="product-card-store">
+        /* ================= RENDER PRODUCTS ================= */
+        function renderProducts(products) {
+            const grid = document.getElementById("productGrid");
+            grid.innerHTML = "";
+
+            if (products.length === 0) {
+                grid.innerHTML = "<p>No products found</p>";
+                return;
+            }
+
+            products.forEach(product => {
+
+                let price = parseFloat(product.price);
+                let discount = parseFloat(product.discount);
+                let finalPrice = price - discount;
+
+                let html = `
+        <article class="product-card-store">
             <div class="product-card-store__media">
-              <img src="{{ asset('assets/website/images/products/product_0.jpg') }}" alt="Classic full sleeve tee" />
-              <span class="product-badge">New</span>
+                <img src="${product.image}" alt="${product.name}" />
+                ${discount > 0 ? `<span class="product-badge product-badge--sale">-${discount}</span>` : ''}
             </div>
-            <div class="product-card-store__body">
-              <span class="product-card-store__meta">Essentials</span>
-              <h3>Classic Full Sleeve Tee</h3>
-              <div class="product-card-store__price"><strong>$24</strong></div>
-              <a href="{{ route('cart') }}" class="product-card-store__cta">Add to cart</a>
-            </div>
-          </article>
 
-          <article class="product-card-store">
-            <div class="product-card-store__media">
-              <img src="{{ asset('assets/website/images/products/product_1.jpg') }}" alt="Minimal denim jacket" />
-            </div>
             <div class="product-card-store__body">
-              <span class="product-card-store__meta">Outerwear</span>
-              <h3>Minimal Denim Jacket</h3>
-              <div class="product-card-store__price"><strong>$78</strong></div>
-              <a href="{{ route('cart') }}" class="product-card-store__cta">Add to cart</a>
-            </div>
-          </article>
+                <span class="product-card-store__meta">
+                    ${product.category ? product.category.name : 'Category'}
+                </span>
 
-          <article class="product-card-store">
-            <div class="product-card-store__media">
-              <img src="{{ asset('assets/website/images/products/product_4.jpg') }}" alt="Structured leather jacket" />
-              <span class="product-badge product-badge--dark">Popular</span>
-            </div>
-            <div class="product-card-store__body">
-              <span class="product-card-store__meta">Statement</span>
-              <h3>Structured Leather Jacket</h3>
-              <div class="product-card-store__price"><strong>$129</strong></div>
-              <a href="{{ route('cart') }}" class="product-card-store__cta">Add to cart</a>
-            </div>
-          </article>
+                <h3>${product.name}</h3>
 
-          <article class="product-card-store">
-            <div class="product-card-store__media">
-              <img src="{{ asset('assets/website/images/products/product_7.jpg') }}" alt="Neutral tailored set" />
-            </div>
-            <div class="product-card-store__body">
-              <span class="product-card-store__meta">Tailored</span>
-              <h3>Neutral Tailored Set</h3>
-              <div class="product-card-store__price"><strong>$88</strong></div>
-              <a href="{{ route('cart') }}" class="product-card-store__cta">Add to cart</a>
-            </div>
-          </article>
+                <div class="product-card-store__price">
+                    <strong>$${finalPrice.toFixed(2)}</strong>
+                    ${discount > 0 ? `<del>$${price.toFixed(2)}</del>` : ''}
+                </div>
 
-          <article class="product-card-store">
-            <div class="product-card-store__media">
-              <img src="{{ asset('assets/website/images/products/product_8.jpg') }}" alt="Soft knit cardigan" />
+                <button
+                    class="product-card-store__cta add-to-cart-btn"
+                    data-id="${product.id}">
+                    Add to cart
+                </button>
             </div>
-            <div class="product-card-store__body">
-              <span class="product-card-store__meta">Knitwear</span>
-              <h3>Soft Knit Cardigan</h3>
-              <div class="product-card-store__price"><strong>$54</strong></div>
-              <a href="{{ route('cart') }}" class="product-card-store__cta">Add to cart</a>
-            </div>
-          </article>
+        </article>
+        `;
 
-          <article class="product-card-store">
-            <div class="product-card-store__media">
-              <img src="{{ asset('assets/website/images/products/product_9.jpg') }}" alt="Relaxed street shirt" />
-              <span class="product-badge product-badge--sale">-20%</span>
-            </div>
-            <div class="product-card-store__body">
-              <span class="product-card-store__meta">Casualwear</span>
-              <h3>Relaxed Street Shirt</h3>
-              <div class="product-card-store__price"><strong>$42</strong><del>$52</del></div>
-              <a href="{{ route('cart') }}" class="product-card-store__cta">Add to cart</a>
-            </div>
-          </article>
+                grid.innerHTML += html;
+            });
 
-          <article class="product-card-store">
-            <div class="product-card-store__media">
-              <img src="{{ asset('assets/website/images/products/product_10.jpg') }}" alt="Everyday tote bag" />
-            </div>
-            <div class="product-card-store__body">
-              <span class="product-card-store__meta">Accessories</span>
-              <h3>Everyday Tote Bag</h3>
-              <div class="product-card-store__price"><strong>$39</strong></div>
-              <a href="{{ route('cart') }}" class="product-card-store__cta">Add to cart</a>
-            </div>
-          </article>
+            attachCartEvents(); // 🔥 important
+        }
 
-          <article class="product-card-store">
-            <div class="product-card-store__media">
-              <img src="{{ asset('assets/website/images/products/product_6.jpg') }}" alt="Clean white sneakers" />
-            </div>
-            <div class="product-card-store__body">
-              <span class="product-card-store__meta">Footwear</span>
-              <h3>Clean White Sneakers</h3>
-              <div class="product-card-store__price"><strong>$67</strong></div>
-              <a href="{{ route('cart') }}" class="product-card-store__cta">Add to cart</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
+        /* ================= ADD TO CART EVENTS ================= */
+        function attachCartEvents() {
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+
+                btn.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-id');
+                    addToCart(productId, 1, this);
+                });
+
+            });
+        }
+
+        /* ================= ADD TO CART API ================= */
+        function addToCart(productId, quantity, btn) {
+
+            const formData = new FormData();
+            formData.append('product_id', productId);
+            formData.append('quantity', quantity);
+
+            var token = localStorage.getItem("token");
+            // console.log(token);
+
+
+            fetch('http://127.0.0.1:8000/api/cart', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+
+                    if (data.status) {
+                        btn.innerText = "Added ✅";
+                        btn.disabled = true;
+                    } else {
+                        alert("❌ Failed to add to cart");
+                    }
+
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("⚠️ Error adding to cart");
+                });
+        }
+    </script>
+
 @endsection

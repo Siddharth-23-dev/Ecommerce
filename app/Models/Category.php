@@ -11,4 +11,14 @@ class Category extends Model
         'slug',
         'image',
     ];
+
+    public function brands()
+    {
+        return $this->hasMany(Brand::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

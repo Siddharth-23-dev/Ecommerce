@@ -15,7 +15,7 @@
                     <i class="icon-chevron-right"></i>
                 </li>
                 <li>
-                    <a href="{{ route('categories.index') }}">
+                    <a href="{{ route('admin.categories.index') }}">
                         <div class="text-tiny">Categories</div>
                     </a>
                 </li>
@@ -29,7 +29,7 @@
         </div>
         
         <div class="wg-box">
-            <form class="form-new-product form-style-1" action="{{ route('categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
+            <form class="form-new-product form-style-1" action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <fieldset class="name">

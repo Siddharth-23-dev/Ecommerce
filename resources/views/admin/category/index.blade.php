@@ -33,7 +33,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <a class="tf-button style-1 w208" href="{{ route('categories.create') }}"><i
+                                        <a class="tf-button style-1 w208" href="{{ route('admin.categories.create') }}"><i
                                                 class="icon-plus"></i>Add new</a>
                                     </div>
                                     <div class="wg-table table-all-user">
@@ -67,12 +67,12 @@
                                                     <td><a href="#" target="_blank">0</a></td>
                                                     <td>
                                                         <div class="list-icon-function">
-                                                            <a href="{{ route('categories.edit', $category->id) }}">
+                                                            <a href="{{ route('admin.categories.edit', $category->id) }}">
                                                                 <div class="item edit">
                                                                     <i class="icon-edit-3"></i>
                                                                 </div>
                                                             </a>
-                                                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
+                                                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="item text-danger delete" style="border: none; background: transparent; padding: 0;">

@@ -18,4 +18,5 @@ class AdminAuth
 
         return $next($request);
     }
+
 }

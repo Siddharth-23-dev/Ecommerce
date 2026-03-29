@@ -30,7 +30,7 @@
                                 </div>
                                 <!-- new-category -->
                                 <div class="wg-box">
-                                    <form class="form-new-product form-style-1" action="{{ route('categories.store') }}" method="POST"
+                                    <form class="form-new-product form-style-1" action="{{ route('admin.categories.store') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <fieldset class="name">

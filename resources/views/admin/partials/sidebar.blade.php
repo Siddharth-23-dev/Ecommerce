@@ -65,12 +65,12 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sub-menu-item">
-                                            <a href="{{ route('categories.index') }}" class="">
+                                            <a href="{{ route('admin.categories.create') }}" class="">
                                                 <div class="text">New Category</div>
                                             </a>
                                         </li>
                                         <li class="sub-menu-item">
-                                            <a href="{{ route('categories.index') }}" class="">
+                                            <a href="{{ route('admin.categories.index') }}" class="">
                                                 <div class="text">Categories</div>
                                             </a>
                                         </li>
@@ -96,9 +96,21 @@
                                     </ul>
                                 </li>
                                 <li class="menu-item">
+                                    <a href="{{ route('admin.carts.index') }}" class="">
+                                        <div class="icon"><i class="icon-shopping-cart"></i></div>
+                                        <div class="text">Carts</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
                                     <a href="{{ route('admin.sliders.index') }}" class="">
                                         <div class="icon"><i class="icon-image"></i></div>
                                         <div class="text">Slider</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="{{ route('admin.banners.index') }}" class="">
+                                        <div class="icon"><i class="icon-image"></i></div>
+                                        <div class="text">Banner</div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
