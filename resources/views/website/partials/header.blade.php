@@ -1,97 +1,83 @@
-<header class="store-header">
-  <div class="announcement-bar">
-    <div class="container store-header__announce">
-      <span>Free shipping on orders over $99</span>
-      <span>New season arrivals now live</span>
-    </div>
+<div class="mwm-topline">
+  <div class="container mwm-topline__inner">
+    <span>Nature's Finest, Crafted for You</span>
+    <span>Ayurvedic inspired wellness storefront</span>
   </div>
+</div>
 
+<header class="mwm-header">
   <div class="container">
-    <div class="store-header__main">
-      <a href="{{ route('home') }}" class="store-header__brand" aria-label="Surfside home">
-        <img src="{{ asset('assets/website/images/logo.png') }}" alt="Surfside" class="store-header__logo" />
+    <div class="mwm-header__shell">
+      <a href="{{ route('home') }}" class="mwm-brand" aria-label="My Mushroom World home">
+        <span class="mwm-brand__seal">MW</span>
+        <span class="mwm-brand__text">
+          <span class="mwm-brand__eyebrow">Power Of Mushrooms</span>
+          <span class="mwm-brand__title">My Mushroom World</span>
+        </span>
       </a>
 
-      <nav class="store-header__nav" aria-label="Primary navigation">
-        <a href="{{ route('home') }}" class="store-header__link">Home</a>
-        <a href="{{ route('shop') }}" class="store-header__link">Shop</a>
-        <a href="{{ route('cart') }}" class="store-header__link">Cart</a>
-        <a href="{{ route('about') }}" class="store-header__link">About</a>
-        <a href="{{ route('contact') }}" class="store-header__link">Contact</a>
+      <nav class="mwm-nav" aria-label="Primary navigation">
+        <a href="{{ route('home') }}" class="mwm-nav__link {{ request()->routeIs('home') ? 'is-active' : '' }}">Home</a>
+        <a href="{{ route('shop') }}" class="mwm-nav__link {{ request()->routeIs('shop') ? 'is-active' : '' }}">Shop</a>
+        <a href="{{ route('about') }}" class="mwm-nav__link {{ request()->routeIs('about') ? 'is-active' : '' }}">About Us</a>
+        <a href="{{ route('contact') }}" class="mwm-nav__link {{ request()->routeIs('contact') ? 'is-active' : '' }}">Contact Us</a>
       </nav>
 
-      <div class="store-header__actions">
-        <a href="{{ route('shop') }}" class="store-header__icon" aria-label="Search products">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <use href="#icon_search" />
-          </svg>
-        </a>
-        <a href="{{ route('cart') }}" class="store-header__icon store-header__cart" aria-label="Cart">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <use href="#icon_cart" />
-          </svg>
-          <span class="store-header__badge">3</span>
-        </a>
+      <div class="mwm-header__actions">
+        <a href="{{ route('cart') }}" class="mwm-header__action">Cart</a>
 
         @guest
-            <a href="{{ route('login') }}" class="store-header__link" style="margin-left: 15px;">Login</a>
-            <a href="{{ route('register') }}" class="store-header__link">Sign Up</a>
+          <a href="{{ route('login') }}" class="mwm-header__action">Login</a>
+          <a href="{{ route('register') }}" class="mwm-header__action mwm-header__action--accent">Sign Up</a>
         @else
-            @if(Auth::user()->isAdmin())
-                <a href="{{ route('admin.dashboard') }}" class="store-header__link" style="margin-left: 15px;">Admin</a>
-            @else
-                <a href="{{ route('user.dashboard') }}" class="store-header__link" style="margin-left: 15px;">Dashboard</a>
-            @endif
-            <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                @csrf
-                <button type="submit" class="store-header__link" style="background:none; border:none; cursor:pointer; font-size: inherit;">Logout</button>
-            </form>
+          @if(Auth::user()->isAdmin())
+            <a href="{{ route('admin.dashboard') }}" class="mwm-header__action">Admin</a>
+          @else
+            <a href="{{ route('user.dashboard') }}" class="mwm-header__action">Dashboard</a>
+          @endif
+
+          <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="mwm-header__action">Logout</button>
+          </form>
         @endguest
       </div>
+
+      <button
+        type="button"
+        class="mwm-menu-toggle"
+        data-menu-toggle
+        data-target="#mobileMenu"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+        aria-label="Toggle menu"
+      >
+        <span></span>
+      </button>
     </div>
 
-    <div class="store-header__mobile">
-      <a href="{{ route('home') }}" class="store-header__brand" aria-label="Surfside home">
-        <img src="{{ asset('assets/website/images/logo.png') }}" alt="Surfside" class="store-header__logo" />
-      </a>
-      <div class="store-header__mobile-actions">
-        <a href="{{ route('shop') }}" class="store-header__icon" aria-label="Shop">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <use href="#icon_search" />
-          </svg>
-        </a>
-        <a href="{{ route('cart') }}" class="store-header__icon store-header__cart" aria-label="Cart">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <use href="#icon_cart" />
-          </svg>
-          <span class="store-header__badge">3</span>
-        </a>
-      </div>
-    </div>
+    <nav id="mobileMenu" class="mwm-mobile-nav" aria-label="Mobile navigation">
+      <a href="{{ route('home') }}" class="mwm-mobile-nav__link {{ request()->routeIs('home') ? 'is-active' : '' }}">Home</a>
+      <a href="{{ route('shop') }}" class="mwm-mobile-nav__link {{ request()->routeIs('shop') ? 'is-active' : '' }}">Shop</a>
+      <a href="{{ route('about') }}" class="mwm-mobile-nav__link {{ request()->routeIs('about') ? 'is-active' : '' }}">About Us</a>
+      <a href="{{ route('contact') }}" class="mwm-mobile-nav__link {{ request()->routeIs('contact') ? 'is-active' : '' }}">Contact Us</a>
+      <a href="{{ route('cart') }}" class="mwm-mobile-nav__link">Cart</a>
 
-    <nav class="store-header__mobile-nav" aria-label="Mobile navigation">
-      <a href="{{ route('home') }}" class="store-header__mobile-link">Home</a>
-      <a href="{{ route('shop') }}" class="store-header__mobile-link">Shop</a>
-      <a href="{{ route('cart') }}" class="store-header__mobile-link">Cart</a>
-      <a href="{{ route('about') }}" class="store-header__mobile-link">About</a>
-      <a href="{{ route('contact') }}" class="store-header__mobile-link">Contact</a>
-      
-      <div style="margin-top: 15px; border-top: 1px solid #eaeaea; padding-top: 15px;">
-        @guest
-            <a href="{{ route('login') }}" class="store-header__mobile-link">Login</a>
-            <a href="{{ route('register') }}" class="store-header__mobile-link">Sign Up</a>
+      @guest
+        <a href="{{ route('login') }}" class="mwm-mobile-nav__link">Login</a>
+        <a href="{{ route('register') }}" class="mwm-mobile-nav__link">Sign Up</a>
+      @else
+        @if(Auth::user()->isAdmin())
+          <a href="{{ route('admin.dashboard') }}" class="mwm-mobile-nav__link">Admin</a>
         @else
-            @if(Auth::user()->isAdmin())
-                <a href="{{ route('admin.dashboard') }}" class="store-header__mobile-link">Admin Dashboard</a>
-            @else
-                <a href="{{ route('user.dashboard') }}" class="store-header__mobile-link">My Dashboard</a>
-            @endif
-            <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                @csrf
-                <button type="submit" class="store-header__mobile-link" style="background:none; border:none; cursor:pointer; width:100%; text-align:left; padding-left:0;">Logout</button>
-            </form>
-        @endguest
-      </div>
+          <a href="{{ route('user.dashboard') }}" class="mwm-mobile-nav__link">Dashboard</a>
+        @endif
+
+        <form action="{{ route('logout') }}" method="POST">
+          @csrf
+          <button type="submit" class="mwm-mobile-nav__link">Logout</button>
+        </form>
+      @endguest
     </nav>
   </div>
 </header>

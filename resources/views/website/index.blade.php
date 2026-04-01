@@ -1,225 +1,316 @@
 @extends('layouts.app')
 
+@section('title', 'My Mushroom World | Home')
+
 @section('content')
-    @php($bannerCollection = $banners ?? collect())
+  <section class="mwm-section">
+    <div class="container">
+      <div class="mwm-hero">
+        <div class="mwm-hero__copy">
+          <span class="mwm-kicker">Mushroom Wellness Store</span>
+          <h1>Nature's finest, crafted for your daily balance and vitality.</h1>
+          <p>
+            Home page ko reference site ke same earthy, premium, rounded-card direction mein rebuild kiya gaya hai so the storefront feels like a polished mushroom wellness brand instead of a raw template.
+          </p>
 
-    <section class="store-banner py-4">
-        <div class="container">
-            <div id="storeBannerCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+          <div class="mwm-hero__actions">
+            <a href="{{ route('shop') }}" class="mwm-btn mwm-btn--primary">Shop Our Range</a>
+            <a href="{{ route('about') }}" class="mwm-btn mwm-btn--secondary">Our Story</a>
+          </div>
 
-                {{-- Slides --}}
-                <div class="carousel-inner banner-carousel-inner" id="dynamic-banner-slides">
-                    @forelse($bannerCollection as $banner)
-                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img
-                                class="d-block w-100 banner-img"
-                                src="{{ $banner->image ? asset('uploads/banners/' . $banner->image) : asset('assets/website/images/home/demo3/slideshow-character1.png') }}"
-                                alt="{{ $banner->title }}"
-                            >
-                        </div>
-                    @empty
-                        <div class="carousel-item active">
-                            <img
-                                class="d-block w-100 banner-img"
-                                src="{{ asset('assets/website/images/home/demo3/slideshow-character1.png') }}"
-                                alt="Default banner"
-                            >
-                        </div>
-                    @endforelse
-                </div>
-
-                {{-- Dot Indicators --}}
-                <div class="carousel-indicators banner-dots" id="dynamic-banner-indicators">
-                    @forelse($bannerCollection as $banner)
-                        <button
-                            type="button"
-                            data-bs-target="#storeBannerCarousel"
-                            data-bs-slide-to="{{ $loop->index }}"
-                            class="{{ $loop->first ? 'active' : '' }}"
-                            aria-label="Slide {{ $loop->iteration }}"
-                        ></button>
-                    @empty
-                        <button type="button" data-bs-target="#storeBannerCarousel" data-bs-slide-to="0" class="active"></button>
-                    @endforelse
-                </div>
-
-                {{-- Prev Button --}}
-                <button class="carousel-control-prev banner-control" type="button" data-bs-target="#storeBannerCarousel" data-bs-slide="prev">
-                    <span class="banner-arrow">&#8592;</span>
-                </button>
-
-                {{-- Next Button --}}
-                <button class="carousel-control-next banner-control" type="button" data-bs-target="#storeBannerCarousel" data-bs-slide="next">
-                    <span class="banner-arrow">&#8594;</span>
-                </button>
-
+          <div class="mwm-hero__metrics">
+            <div class="mwm-metric-card">
+              <strong>15+</strong>
+              <p>Years of wellness-led storytelling and crafted presentation.</p>
             </div>
+            <div class="mwm-metric-card">
+              <strong>4</strong>
+              <p>Core storefront pages rebuilt into one consistent visual language.</p>
+            </div>
+            <div class="mwm-metric-card">
+              <strong>INR</strong>
+              <p>Pricing tone, premium texture, and product card rhythm inspired by the reference.</p>
+            </div>
+          </div>
         </div>
-    </section>
 
+        <div class="mwm-hero__visual">
+          <article class="mwm-hero-card">
+            <div class="mwm-hero-card__media">
+              <img src="https://mymushroomworld.com/cdn/shop/files/Group-140-e1724827862630.png?height=628&pad_color=ffffff&v=1728900951&width=1200" alt="Mushroom brand hero" />
+            </div>
+            <div class="mwm-hero-card__body">
+              <span class="mwm-badge">Trusted wellness direction</span>
+              <p style="margin-top: 14px;">Soft beige layers, golden accents, organic curves, and premium product framing mirror the visual cadence of `mymushroomworld.com`.</p>
+            </div>
+          </article>
 
-  <section class="trust-strip">
-    <div class="container trust-strip__grid">
-      <div><strong>Free Delivery</strong><span>On prepaid orders above $99</span></div>
-      <div><strong>Easy Returns</strong><span>7-day hassle-free exchange</span></div>
-      <div><strong>Premium Edit</strong><span>Curated looks for men and women</span></div>
-      <div><strong>Secure Checkout</strong><span>Trusted payment experience</span></div>
+          <div class="mwm-panel mwm-hero-mini">
+            <span class="mwm-brand__seal">MW</span>
+            <div>
+              <span class="mwm-product-card__meta">Store Refresh</span>
+              <h3 style="font-size: 32px;">Shop, story, support, and landing pages now feel unified.</h3>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="store-section">
+  <section class="mwm-section mwm-section--tight">
     <div class="container">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">Shop by category</span>
-          <h2>Collections that look consistent and sell better</h2>
-        </div>
-        <a href="{{ route('shop') }}" class="section-link">View all categories</a>
-      </div>
-
-      <div class="category-grid" id="dynamic-category-grid">
-        <div class="catalog-placeholder">
-          Loading categories...
-        </div>
+      <div class="mwm-icon-strip">
+        <article class="mwm-icon-card">
+          <span class="mwm-icon-card__seal">01</span>
+          <div>
+            <strong>Handpicked</strong>
+            <p>Rounded premium sections with calmer spacing and warmer tones.</p>
+          </div>
+        </article>
+        <article class="mwm-icon-card">
+          <span class="mwm-icon-card__seal">02</span>
+          <div>
+            <strong>Certified</strong>
+            <p>Clear hierarchy for trust strips, features, and social proof blocks.</p>
+          </div>
+        </article>
+        <article class="mwm-icon-card">
+          <span class="mwm-icon-card__seal">03</span>
+          <div>
+            <strong>Authentic</strong>
+            <p>Visual language closely aligned to the mushroom wellness reference.</p>
+          </div>
+        </article>
+        <article class="mwm-icon-card">
+          <span class="mwm-icon-card__seal">04</span>
+          <div>
+            <strong>Sustainable</strong>
+            <p>Reusable layout system ready to extend across more storefront pages.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="store-section store-section--contrast">
+  <section class="mwm-section">
     <div class="container">
-      <div class="section-heading">
+      <div class="mwm-section-heading">
         <div>
-          <span class="eyebrow">Shop by brand</span>
-          <h2>Open a brand, reveal its categories, then drill into products</h2>
+          <span class="mwm-kicker">Shop Our Bestsellers</span>
+          <h2>Nature's finest, crafted for you.</h2>
         </div>
-        <a href="{{ route('shop') }}" class="section-link">Browse catalogue</a>
+        <a href="{{ route('shop') }}" class="mwm-link-button">Browse all products</a>
       </div>
 
-      <div class="brand-showcase-grid" id="dynamic-brand-grid">
-        <div class="catalog-placeholder">
-          Loading brands, categories, and products...
-        </div>
+      <div id="homeBestsellerGrid" class="mwm-product-grid">
+        <div class="mwm-empty-state">Loading products...</div>
       </div>
     </div>
   </section>
 
-  <section class="store-section">
-    <div class="container promo-grid">
-      <article class="promo-card">
-        <div class="promo-card__copy">
-          <span class="eyebrow">Tailored essentials</span>
-          <h2>Sharp layers built for weekday polish</h2>
-          <p>Modern fits, versatile palettes, and premium textures for a more elevated catalogue.</p>
-          <a href="{{ route('shop') }}" class="section-link">Shop blazers</a>
+  <section class="mwm-section">
+    <div class="container">
+      <div class="mwm-section-heading">
+        <div>
+          <span class="mwm-kicker">Our Product Range</span>
+          <h2>Discover a world of wellness with the power of mushrooms.</h2>
         </div>
-        <div class="promo-card__media">
-          <img src="{{ asset('assets/website/images/home/demo3/category_9.jpg') }}" alt="Blazers collection" />
+        <a href="{{ route('shop') }}" class="mwm-link-button">Explore categories</a>
+      </div>
+
+      <div id="homeRangeGrid" class="mwm-category-grid">
+        <div class="mwm-empty-state">Loading categories...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mwm-section">
+    <div class="container">
+      <div class="mwm-section-heading">
+        <div>
+          <span class="mwm-kicker">Magic Of Our Mushrooms</span>
+          <h2>Discover a premium storefront rhythm designed around trust and texture.</h2>
+        </div>
+      </div>
+
+      <div class="mwm-feature-grid">
+        <article class="mwm-feature-card">
+          <span class="mwm-feature-card__seal">A</span>
+          <h3>Handpicked details</h3>
+          <p>Large editorial headings, centered breathing room, and curved containers echo the reference site.</p>
+        </article>
+        <article class="mwm-feature-card">
+          <span class="mwm-feature-card__seal">B</span>
+          <h3>Conversion clarity</h3>
+          <p>CTA buttons, price hierarchy, and content grouping are sharper and easier to scan.</p>
+        </article>
+        <article class="mwm-feature-card">
+          <span class="mwm-feature-card__seal">C</span>
+          <h3>Responsive polish</h3>
+          <p>The new sections collapse cleanly on mobile without losing the same premium feel.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="mwm-section">
+    <div class="container">
+      <article class="mwm-story-panel">
+        <div class="mwm-story-panel__media">
+          <img src="https://cdn.shopify.com/s/files/1/0568/9986/2610/files/Front_Images_Shilajit_Gold_jpg.jpg?v=1772541072" alt="Crafted product presentation" />
+        </div>
+        <div class="mwm-story-panel__body">
+          <span class="mwm-kicker">Carefully Crafted</span>
+          <h2>Our products and pages are now crafted with the same earthy luxury tone.</h2>
+          <p>The rebuilt home page carries the same soft contrast blocks, premium product emphasis, and warm visual layering found in the reference experience.</p>
+          <ul class="mwm-story-list">
+            <li>Hero and feature sections reorganized into a stronger storytelling flow.</li>
+            <li>Product and category cards now feel like a coordinated brand family.</li>
+            <li>Footer and navigation match the same calm, rounded mushroom-site language.</li>
+          </ul>
         </div>
       </article>
-
-      <article class="promo-card promo-card--dark">
-        <div class="promo-card__copy">
-          <span class="eyebrow">Sportswear edit</span>
-          <h2>Comfort-driven pieces with premium visual balance</h2>
-          <p>Professional product presentation, stronger hierarchy, and tighter spacing across every viewport.</p>
-          <a href="{{ route('shop') }}" class="section-link section-link--light">Explore now</a>
-        </div>
-        <div class="promo-card__media">
-          <img src="{{ asset('assets/website/images/home/demo3/category_10.jpg') }}" alt="Sportswear collection" />
-        </div>
-      </article>
     </div>
   </section>
 
-  <section class="store-section store-section--compact">
-    <div class="container newsletter-panel">
-      <div>
-        <span class="eyebrow">Stay updated</span>
-        <h2>Weekly drops, sale alerts, and styling inspiration.</h2>
+  <section class="mwm-section">
+    <div class="container">
+      <div class="mwm-section-heading">
+        <div>
+          <span class="mwm-kicker">Awards & Recognition</span>
+          <h2>Experience the healing power of a brand presentation built to feel celebrated.</h2>
+        </div>
       </div>
-      <form class="newsletter-panel__form">
-        <input type="email" placeholder="Enter your email address" aria-label="Email address" />
-        <button type="submit">Subscribe</button>
-      </form>
+
+      <div class="mwm-award-grid">
+        <div class="mwm-award-item">
+          <strong>01</strong>
+          <p>Editorial hero layout with premium layered gradients.</p>
+        </div>
+        <div class="mwm-award-item">
+          <strong>02</strong>
+          <p>Rounded product merchandising system for homepage and shop.</p>
+        </div>
+        <div class="mwm-award-item">
+          <strong>03</strong>
+          <p>Reusable content cards for story, support, and trust sections.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mwm-section">
+    <div class="container">
+      <div class="mwm-section-heading">
+        <div>
+          <span class="mwm-kicker">Our Latest Notes</span>
+          <h2>Blog-style content blocks matching the reference storefront rhythm.</h2>
+        </div>
+      </div>
+
+      <div class="mwm-blog-grid">
+        <article class="mwm-blog-card">
+          <div class="mwm-blog-card__media">
+            <img src="https://cdn.shopify.com/s/files/1/0568/9986/2610/files/WhatsApp_Image_2026-02-21_at_11.51.50_AM.jpg?v=1771655525" alt="Weight gain wellness article" />
+          </div>
+          <div class="mwm-blog-card__body">
+            <span class="mwm-blog-card__meta">March 8, 2025</span>
+            <h3>Stop believing generic product layouts.</h3>
+            <p>Homepage sections now tell a story instead of looking like isolated template blocks.</p>
+          </div>
+        </article>
+        <article class="mwm-blog-card">
+          <div class="mwm-blog-card__media">
+            <img src="https://cdn.shopify.com/s/files/1/0568/9986/2610/files/MenXPowderSlide1.png?v=1773404065" alt="Performance wellness article" />
+          </div>
+          <div class="mwm-blog-card__body">
+            <span class="mwm-blog-card__meta">Design refresh</span>
+            <h3>Forget flat sections, build immersive product-first pages.</h3>
+            <p>The new UI introduces depth, hierarchy, and card treatment closer to the benchmark site.</p>
+          </div>
+        </article>
+        <article class="mwm-blog-card">
+          <div class="mwm-blog-card__media">
+            <img src="https://cdn.shopify.com/s/files/1/0568/9986/2610/files/LucoXSlide1.png?v=1773920411" alt="Wellness article" />
+          </div>
+          <div class="mwm-blog-card__body">
+            <span class="mwm-blog-card__meta">Store strategy</span>
+            <h3>Product storytelling now carries through the full storefront.</h3>
+            <p>Home, About, Contact, and Shop all share the same mushroom-luxury visual system.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="mwm-section">
+    <div class="container">
+      <div class="mwm-section-heading">
+        <div>
+          <span class="mwm-kicker">Our Brand's Presenters</span>
+          <h2>Visual variety blocks inspired by the multi-card sections on the reference home page.</h2>
+        </div>
+      </div>
+
+      <div class="mwm-presenter-grid">
+        <article class="mwm-presenter-card">
+          <div class="mwm-presenter-card__media">
+            <img src="https://cdn.shopify.com/s/files/1/0568/9986/2610/files/MenXCapsuleSlide1.png?v=1773404187" alt="Presenter card one" />
+          </div>
+          <div class="mwm-presenter-card__body">
+            <h3>Stronger product theatre</h3>
+            <p>Large, framed visuals create premium momentum before the user reaches the shop page.</p>
+          </div>
+        </article>
+        <article class="mwm-presenter-card">
+          <div class="mwm-presenter-card__media">
+            <img src="https://cdn.shopify.com/s/files/1/0568/9986/2610/files/KabzX-5_1.25x_1.25x_8daf18c6-de1d-4ba1-b051-8b68b6c7c70d.jpg?v=1772541393" alt="Presenter card two" />
+          </div>
+          <div class="mwm-presenter-card__body">
+            <h3>Warmer visual identity</h3>
+            <p>Earthy gradients and off-white surfaces help the storefront feel intentional and brand-specific.</p>
+          </div>
+        </article>
+        <article class="mwm-presenter-card">
+          <div class="mwm-presenter-card__media">
+            <img src="https://cdn.shopify.com/s/files/1/0568/9986/2610/files/MenXPowderSlide2.png?v=1773403822" alt="Presenter card three" />
+          </div>
+          <div class="mwm-presenter-card__body">
+            <h3>Consistent page family</h3>
+            <p>The same rounded premium language now connects discovery, trust, and support sections.</p>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 @endsection
 
-@push('styles')
-  <style>
-    .store-banner .carousel {
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
-    }
-
-    .store-banner .carousel-item img {
-      height: 520px;
-      object-fit: cover;
-    }
-
-    .store-banner .carousel-control-prev,
-    .store-banner .carousel-control-next {
-      width: 64px;
-    }
-
-    .store-banner .carousel-control-prev-icon,
-    .store-banner .carousel-control-next-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.18);
-      background-size: 42% 42%;
-      backdrop-filter: blur(8px);
-    }
-
-    @media (max-width: 991.98px) {
-      .store-banner .carousel-item img {
-        height: 360px;
-      }
-    }
-
-    @media (max-width: 575.98px) {
-      .store-banner .carousel {
-        border-radius: 20px;
-      }
-
-      .store-banner .carousel-item img {
-        height: 260px;
-      }
-
-      .store-banner .carousel-control-prev,
-      .store-banner .carousel-control-next {
-        display: none;
-      }
-    }
-  </style>
-@endpush
-
 @push('scripts')
   <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-      const bannerIndicators = document.getElementById('dynamic-banner-indicators');
-      const bannerSlides = document.getElementById('dynamic-banner-slides');
-      const categoryGrid = document.getElementById('dynamic-category-grid');
-      const brandGrid = document.getElementById('dynamic-brand-grid');
-
+    document.addEventListener('DOMContentLoaded', async function () {
+      const bestsellerGrid = document.getElementById('homeBestsellerGrid');
+      const rangeGrid = document.getElementById('homeRangeGrid');
       const homeApiUrl = @json(url('/api/home'));
       const shopUrl = @json(route('shop'));
-      const categoryAssetBase = @json(asset('uploads/categories'));
-      const brandAssetBase = @json(asset('uploads/brands'));
-      const productAssetBase = @json(asset('uploads/products'));
-      const bannerAssetBase = @json(asset('uploads/banners'));
-      const defaultCategoryImage = @json(asset('assets/website/images/home/demo3/category_1.png'));
-      const defaultBrandImage = @json(asset('assets/website/images/home/demo3/category_2.png'));
-      const defaultProductImage = @json(asset('assets/website/images/products/product_0.jpg'));
-      const defaultBannerImage = @json(asset('assets/website/images/home/demo3/slideshow-character1.png'));
-      const currencyFormatter = new Intl.NumberFormat('en-US', {
+      const currencyFormatter = new Intl.NumberFormat('en-IN', {
         style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
+        currency: 'INR',
+        maximumFractionDigits: 0
       });
+
+      const fallbackProducts = [
+        { name: 'Mushroomex Weight Gainer', category: { name: 'Bestseller', slug: 'bestseller' }, price: 379, discount: 0, image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/WhatsApp_Image_2026-02-21_at_11.51.50_AM.jpg?v=1771655525' },
+        { name: 'ShilajitX Gold Resin', category: { name: 'Ayurvedic Resin', slug: 'resin' }, price: 1849, discount: 404, image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/Front_Images_Shilajit_Gold_jpg.jpg?v=1772541072' },
+        { name: 'MENZ-X Capsule', category: { name: 'Performance', slug: 'performance' }, price: 1750, discount: 350, image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/MenXCapsuleSlide1.png?v=1773404187' },
+        { name: 'LUCOX Capsule', category: { name: 'Wellness', slug: 'wellness' }, price: 1499, discount: 180, image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/LucoXSlide1.png?v=1773920411' }
+      ];
+
+      const fallbackCategories = [
+        { name: 'Mushroom Powders', slug: 'mushroom-powders', image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/MenXPowderSlide1.png?v=1773404065' },
+        { name: 'Capsules', slug: 'capsules', image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/MenXCapsuleSlide1.png?v=1773404187' },
+        { name: 'Resins', slug: 'resins', image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/Front_Images_Shilajit_Gold_jpg.jpg?v=1772541072' },
+        { name: 'Digestive Care', slug: 'digestive-care', image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/Front_Images_KabzX_jpg.jpg?v=1772541393' }
+      ];
 
       function escapeHtml(value) {
         return String(value ?? '')
@@ -230,14 +321,10 @@
           .replace(/'/g, '&#39;');
       }
 
-      function renderMessage(element, message, isError = false) {
-        element.innerHTML = `<div class="catalog-placeholder${isError ? ' catalog-placeholder--error' : ''}">${escapeHtml(message)}</div>`;
-      }
-
       function buildShopLink(params = {}) {
         const url = new URL(shopUrl, window.location.origin);
 
-        Object.entries(params).forEach(([key, value]) => {
+        Object.entries(params).forEach(function ([key, value]) {
           if (value) {
             url.searchParams.set(key, value);
           }
@@ -246,20 +333,53 @@
         return `${url.pathname}${url.search}`;
       }
 
-      function resolveImage(image, fallbackImage, assetBase = '') {
-        if (!image) {
-          return fallbackImage;
-        }
+      function renderProducts(products) {
+        bestsellerGrid.innerHTML = products.map(function (product) {
+          const price = Number(product.price || 0);
+          const discount = Number(product.discount || 0);
+          const salePrice = Math.max(price - discount, 0);
+          const categoryName = escapeHtml(product.category?.name || 'Featured');
+          const categorySlug = product.category?.slug || '';
 
-        if (/^https?:\/\//i.test(image)) {
-          return image;
-        }
-
-        return assetBase ? `${assetBase}/${image}` : image;
+          return `
+            <article class="mwm-product-card">
+              <div class="mwm-product-card__media">
+                <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" />
+              </div>
+              <div class="mwm-product-card__body">
+                <span class="mwm-product-card__meta">${categoryName}</span>
+                <h3>${escapeHtml(product.name)}</h3>
+                <p>Premium rounded product merchandising inspired by the reference storefront.</p>
+                <div class="mwm-product-card__price">
+                  <strong>${currencyFormatter.format(salePrice)}</strong>
+                  ${discount > 0 ? `<del>${currencyFormatter.format(price)}</del>` : ''}
+                </div>
+                <a href="${buildShopLink({ category: categorySlug })}" class="mwm-link-button">View in shop</a>
+              </div>
+            </article>
+          `;
+        }).join('');
       }
 
-      async function fetchJson(url) {
-        const response = await fetch(url, {
+      function renderCategories(categories) {
+        rangeGrid.innerHTML = categories.map(function (category) {
+          return `
+            <a href="${buildShopLink({ category: category.slug || '' })}" class="mwm-category-card">
+              <div class="mwm-category-card__media">
+                <img src="${escapeHtml(category.image)}" alt="${escapeHtml(category.name)}" />
+              </div>
+              <div class="mwm-category-card__body">
+                <span class="mwm-category-card__meta">Product range</span>
+                <h3>${escapeHtml(category.name)}</h3>
+                <p>Discover curated layouts and category-first browsing.</p>
+              </div>
+            </a>
+          `;
+        }).join('');
+      }
+
+      try {
+        const response = await fetch(homeApiUrl, {
           headers: {
             'Accept': 'application/json',
             'X-Requested-With': 'XMLHttpRequest'
@@ -270,374 +390,16 @@
           throw new Error(`Request failed with status ${response.status}`);
         }
 
-        return response.json();
-      }
+        const payload = await response.json();
+        const products = payload?.data?.products?.slice(0, 4) || [];
+        const categories = payload?.data?.categories?.slice(0, 4) || [];
 
-      function renderBanners(banners) {
-        if (!Array.isArray(banners) || banners.length === 0) {
-          bannerIndicators.innerHTML = `
-            <button
-              type="button"
-              data-bs-target="#storeBannerCarousel"
-              data-bs-slide-to="0"
-              class="active"
-              aria-label="Slide 1"
-            ></button>
-          `;
-
-          bannerSlides.innerHTML = `
-            <div class="carousel-item active">
-              <img class="d-block w-100 banner-img" src="${defaultBannerImage}" alt="Default banner">
-            </div>
-          `;
-
-          return;
-        }
-
-        bannerIndicators.innerHTML = banners.map((banner, index) => `
-          <button
-            type="button"
-            data-bs-target="#storeBannerCarousel"
-            data-bs-slide-to="${index}"
-            class="${index === 0 ? 'active' : ''}"
-            aria-label="Slide ${index + 1}"
-          ></button>
-        `).join('');
-
-        bannerSlides.innerHTML = banners.map((banner, index) => `
-          <div class="carousel-item ${index === 0 ? 'active' : ''}">
-            <img
-              class="d-block w-100 banner-img"
-              src="${resolveImage(banner.image, defaultBannerImage, bannerAssetBase)}"
-              alt="${escapeHtml(banner.title || 'Banner')}"
-            >
-          </div>
-        `).join('');
-      }
-
-      function renderCategories(categories) {
-        if (!Array.isArray(categories) || categories.length === 0) {
-          renderMessage(categoryGrid, 'No categories found.');
-          return;
-        }
-
-        categoryGrid.innerHTML = categories.map(category => {
-          const categoryName = escapeHtml(category.name);
-          const categoryImage = resolveImage(category.image, defaultCategoryImage, categoryAssetBase);
-          const categoryLink = buildShopLink({ category: category.slug });
-
-          return `
-            <a href="${categoryLink}" class="category-card">
-              <div class="category-card__media">
-                <img src="${categoryImage}" alt="${categoryName}" />
-              </div>
-              <h3>${categoryName}</h3>
-              <p>Explore ${categoryName}</p>
-            </a>
-          `;
-        }).join('');
-      }
-
-      function renderProducts(products, brand, fallbackCategory) {
-        if (!Array.isArray(products) || products.length === 0) {
-          return '<div class="catalog-placeholder catalog-placeholder--inline">No products added under this category yet.</div>';
-        }
-
-        return products.map(product => {
-          const productName = escapeHtml(product.name);
-          const productCategoryName = escapeHtml(product.category?.name || fallbackCategory?.name || 'Catalogue product');
-          const productImage = resolveImage(product.image, defaultProductImage, productAssetBase);
-          const originalPrice = Number(product.price || 0);
-          const discount = Number(product.discount || 0);
-          const finalPrice = discount > 0 ? Math.max(originalPrice - discount, 0) : originalPrice;
-          const productLink = buildShopLink({
-            category: product.category?.slug || fallbackCategory?.slug || '',
-            brand: brand.slug || ''
-          });
-
-          return `
-            <a href="${productLink}" class="brand-product-card">
-              <div class="brand-product-card__media">
-                <img src="${productImage}" alt="${productName}" />
-              </div>
-              <div class="brand-product-card__body">
-                <span class="brand-product-card__meta">${productCategoryName}</span>
-                <h3>${productName}</h3>
-                <div class="brand-product-card__price">
-                  <strong>${currencyFormatter.format(finalPrice)}</strong>
-                  ${discount > 0 ? `<del>${currencyFormatter.format(originalPrice)}</del>` : ''}
-                </div>
-                <span class="brand-product-card__link">View in shop</span>
-              </div>
-            </a>
-          `;
-        }).join('');
-      }
-
-      function mergeBrandsWithProducts(brands, products) {
-        if (!Array.isArray(brands)) {
-          return [];
-        }
-
-        const productsByBrand = Array.isArray(products)
-          ? products.reduce((carry, product) => {
-              const brandId = product?.brand_id;
-
-              if (!brandId) {
-                return carry;
-              }
-
-              if (!carry[brandId]) {
-                carry[brandId] = [];
-              }
-
-              carry[brandId].push(product);
-              return carry;
-            }, {})
-          : {};
-
-        return brands.map(brand => ({
-          ...brand,
-          products: productsByBrand[brand.id] || []
-        }));
-      }
-
-      function buildBrandCategories(brand) {
-        const categoryMap = new Map();
-
-        function getCategoryKey(category) {
-          return category?.id || category?.slug || category?.name || null;
-        }
-
-        function ensureCategory(category) {
-          if (!category) {
-            return null;
-          }
-
-          const key = getCategoryKey(category);
-
-          if (!key) {
-            return null;
-          }
-
-          if (!categoryMap.has(key)) {
-            categoryMap.set(key, {
-              id: category.id || null,
-              name: category.name || 'Untitled category',
-              slug: category.slug || '',
-              image: category.image || null,
-              products: []
-            });
-          }
-
-          return categoryMap.get(key);
-        }
-
-        ensureCategory(brand.category);
-
-        (brand.products || []).forEach(product => {
-          const categoryBucket = ensureCategory(product.category || brand.category);
-
-          if (categoryBucket) {
-            categoryBucket.products.push(product);
-          }
-        });
-
-        return Array.from(categoryMap.values());
-      }
-
-      function renderCategoryItems(categories, brand) {
-        if (!categories.length) {
-          return `
-            <div class="brand-panel__empty">
-              <strong>No categories yet</strong>
-              <p>This brand is added in backend, but no category or product is linked yet.</p>
-            </div>
-          `;
-        }
-
-        return categories.map((category, index) => {
-          const categoryName = escapeHtml(category.name);
-          const categoryImage = resolveImage(category.image, defaultCategoryImage, categoryAssetBase);
-          const categoryPanelId = `brand-${brand.id}-category-${category.id || index}`;
-          const productCount = Array.isArray(category.products) ? category.products.length : 0;
-
-          return `
-            <div class="brand-category-item" data-category-item>
-              <button
-                type="button"
-                class="brand-category-trigger"
-                data-category-trigger
-                aria-expanded="false"
-                aria-controls="${categoryPanelId}"
-              >
-                <span class="brand-category-trigger__media">
-                  <img src="${categoryImage}" alt="${categoryName}" />
-                </span>
-                <span class="brand-category-trigger__content">
-                  <span>Category</span>
-                  <strong>${categoryName}</strong>
-                  <small>${productCount > 0 ? `${productCount} product${productCount > 1 ? 's' : ''}` : 'Products not added yet'}</small>
-                </span>
-                <span class="brand-category-trigger__icon" aria-hidden="true"></span>
-              </button>
-
-              <div id="${categoryPanelId}" class="brand-category-panel" hidden>
-                ${productCount > 0
-                  ? `<div class="brand-product-grid">${renderProducts(category.products, brand, category)}</div>`
-                  : '<div class="brand-panel__empty brand-panel__empty--compact"><strong>No products yet</strong><p>Category is available, but products are not added under it yet.</p></div>'
-                }
-              </div>
-            </div>
-          `;
-        }).join('');
-      }
-
-      function renderBrands(brands) {
-        if (!Array.isArray(brands) || brands.length === 0) {
-          renderMessage(brandGrid, 'No brands found.');
-          return;
-        }
-
-        brandGrid.innerHTML = brands.map(brand => {
-          const brandName = escapeHtml(brand.name);
-          const brandImage = resolveImage(brand.image, defaultBrandImage, brandAssetBase);
-          const categories = buildBrandCategories(brand);
-          const panelId = `brand-panel-${brand.id}`;
-          const categoryCount = categories.length;
-          const productCount = Array.isArray(brand.products) ? brand.products.length : 0;
-
-          return `
-            <article class="brand-accordion__item" data-brand-item>
-              <button
-                type="button"
-                class="brand-trigger"
-                data-brand-trigger
-                aria-expanded="false"
-                aria-controls="${panelId}"
-              >
-                <span class="brand-trigger__identity">
-                  <span class="brand-trigger__media">
-                    <img src="${brandImage}" alt="${brandName}" />
-                  </span>
-                  <span class="brand-trigger__content">
-                    <span>Brand</span>
-                    <strong>${brandName}</strong>
-                    <small>${categoryCount > 0 ? `${categoryCount} categor${categoryCount > 1 ? 'ies' : 'y'}` : 'No category linked yet'}${productCount > 0 ? ` • ${productCount} product${productCount > 1 ? 's' : ''}` : ''}</small>
-                  </span>
-                </span>
-                <span class="brand-trigger__icon" aria-hidden="true"></span>
-              </button>
-
-              <div id="${panelId}" class="brand-panel" hidden>
-                <div class="brand-category-list">
-                  ${renderCategoryItems(categories, brand)}
-                </div>
-              </div>
-            </article>
-          `;
-        }).join('');
-      }
-
-      brandGrid.addEventListener('click', event => {
-        const categoryTrigger = event.target.closest('[data-category-trigger]');
-
-        if (categoryTrigger) {
-          const categoryItem = categoryTrigger.closest('[data-category-item]');
-          const brandItem = categoryTrigger.closest('[data-brand-item]');
-          const panel = categoryItem?.querySelector('.brand-category-panel');
-          const isExpanded = categoryTrigger.getAttribute('aria-expanded') === 'true';
-
-          brandItem?.querySelectorAll('[data-category-trigger]').forEach(trigger => {
-            if (trigger !== categoryTrigger) {
-              trigger.setAttribute('aria-expanded', 'false');
-              trigger.closest('[data-category-item]')?.classList.remove('is-open');
-            }
-          });
-
-          brandItem?.querySelectorAll('.brand-category-panel').forEach(categoryPanel => {
-            if (categoryPanel !== panel) {
-              categoryPanel.hidden = true;
-            }
-          });
-
-          if (panel) {
-            panel.hidden = isExpanded;
-          }
-
-          categoryTrigger.setAttribute('aria-expanded', String(!isExpanded));
-          categoryItem?.classList.toggle('is-open', !isExpanded);
-          return;
-        }
-
-        const brandTrigger = event.target.closest('[data-brand-trigger]');
-
-        if (!brandTrigger) {
-          return;
-        }
-
-        const brandItem = brandTrigger.closest('[data-brand-item]');
-        const panel = brandItem?.querySelector('.brand-panel');
-        const isExpanded = brandTrigger.getAttribute('aria-expanded') === 'true';
-
-        brandGrid.querySelectorAll('[data-brand-trigger]').forEach(trigger => {
-          if (trigger !== brandTrigger) {
-            trigger.setAttribute('aria-expanded', 'false');
-            trigger.closest('[data-brand-item]')?.classList.remove('is-open');
-          }
-        });
-
-        brandGrid.querySelectorAll('.brand-panel').forEach(brandPanel => {
-          if (brandPanel !== panel) {
-            brandPanel.hidden = true;
-          }
-        });
-
-        brandGrid.querySelectorAll('[data-category-trigger]').forEach(trigger => {
-          if (!brandItem?.contains(trigger)) {
-            trigger.setAttribute('aria-expanded', 'false');
-            trigger.closest('[data-category-item]')?.classList.remove('is-open');
-          }
-        });
-
-        brandGrid.querySelectorAll('.brand-category-panel').forEach(categoryPanel => {
-          if (!brandItem?.contains(categoryPanel)) {
-            categoryPanel.hidden = true;
-          }
-        });
-
-        if (panel) {
-          panel.hidden = isExpanded;
-        }
-
-        if (isExpanded) {
-          brandItem?.querySelectorAll('[data-category-trigger]').forEach(trigger => {
-            trigger.setAttribute('aria-expanded', 'false');
-            trigger.closest('[data-category-item]')?.classList.remove('is-open');
-          });
-
-          brandItem?.querySelectorAll('.brand-category-panel').forEach(categoryPanel => {
-            categoryPanel.hidden = true;
-          });
-        }
-
-        brandTrigger.setAttribute('aria-expanded', String(!isExpanded));
-        brandItem?.classList.toggle('is-open', !isExpanded);
-      });
-
-      try {
-        const response = await fetchJson(homeApiUrl);
-        const homeData = response?.data || {};
-        const brandsWithProducts = mergeBrandsWithProducts(homeData.brands || [], homeData.products || []);
-
-        renderBanners(homeData.banners || []);
-        renderCategories(homeData.categories || []);
-        renderBrands(brandsWithProducts);
+        renderProducts(products.length ? products : fallbackProducts);
+        renderCategories(categories.length ? categories : fallbackCategories);
       } catch (error) {
-        console.error('Error fetching home data:', error);
-        renderBanners([]);
-        renderMessage(categoryGrid, 'Failed to load categories. Please try again later.', true);
-        renderMessage(brandGrid, 'Failed to load brands and products. Please try again later.', true);
+        console.error('Unable to load homepage data:', error);
+        renderProducts(fallbackProducts);
+        renderCategories(fallbackCategories);
       }
     });
   </script>

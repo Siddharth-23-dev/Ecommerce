@@ -1,48 +1,55 @@
-<footer class="store-footer">
+<footer class="mwm-footer">
   <div class="container">
-    <div class="store-footer__top">
-      <div>
-        <a href="{{ route('home') }}" class="store-footer__brand">
-          <img src="{{ asset('assets/website/images/logo.png') }}" alt="Surfside" class="store-footer__logo" />
-        </a>
-        <p class="store-footer__text">
-          Modern fashion essentials with premium fits, sharp pricing, and fast doorstep delivery.
-        </p>
+    <div class="mwm-footer__shell">
+      <div class="mwm-footer__grid">
+        <div>
+          <a href="{{ route('home') }}" class="mwm-brand" aria-label="My Mushroom World home">
+            <span class="mwm-brand__seal">MW</span>
+            <span class="mwm-brand__text">
+              <span class="mwm-brand__eyebrow">A Venture Of Mushroom World Group</span>
+              <span class="mwm-brand__title">My Mushroom World</span>
+            </span>
+          </a>
+          <p style="margin-top: 16px;">
+            Mushrooms, health's white warriors, bring balance, calm energy, and a grounded premium feel to this storefront experience.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="mwm-footer__title">Quick Links</h4>
+          <ul class="mwm-footer__list">
+            <li><a href="{{ route('home') }}">Home</a></li>
+            <li><a href="{{ route('shop') }}">Shop</a></li>
+            <li><a href="{{ route('about') }}">About Us</a></li>
+            <li><a href="{{ route('contact') }}">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="mwm-footer__title">Get In Touch</h4>
+          <ul class="mwm-footer__list">
+            <li>226, Gufa Mandir Road, Jain Nagar, Bhopal</li>
+            <li>+91 79094 44999</li>
+            <li>+91 98263 22445</li>
+            <li>info@mymushroomworld.com</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="mwm-footer__title">Store Notes</h4>
+          <ul class="mwm-footer__list">
+            <li>Earthy luxury layout inspired by the reference site</li>
+            <li>Rounded product-first browsing system</li>
+            <li>Mobile responsive navigation and cards</li>
+            <li>Reusable for the rest of the storefront</li>
+          </ul>
+        </div>
       </div>
 
-      <div>
-        <h4 class="store-footer__heading">Shop</h4>
-        <ul class="store-footer__list">
-          <li><a href="{{ route('shop') }}">New arrivals</a></li>
-          <li><a href="{{ route('shop') }}">Best sellers</a></li>
-          <li><a href="{{ route('shop') }}">Women</a></li>
-          <li><a href="{{ route('shop') }}">Men</a></li>
-        </ul>
+      <div class="mwm-footer__bottom">
+        <span>&copy; 2026 My Mushroom World</span>
+        <span>Home, Shop, About Us, and Contact Us rebuilt in a unified mushroom-brand UI.</span>
       </div>
-
-      <div>
-        <h4 class="store-footer__heading">Company</h4>
-        <ul class="store-footer__list">
-          <li><a href="{{ route('about') }}">About us</a></li>
-          <li><a href="{{ route('contact') }}">Contact</a></li>
-          <li><a href="{{ route('cart') }}">Shipping</a></li>
-          <li><a href="{{ route('cart') }}">Returns</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 class="store-footer__heading">Newsletter</h4>
-        <p class="store-footer__text">Get product drops, sale alerts, and weekly style picks.</p>
-        <form class="store-footer__form">
-          <input type="email" placeholder="Enter your email" aria-label="Email address" />
-          <button type="submit">Join</button>
-        </form>
-      </div>
-    </div>
-
-    <div class="store-footer__bottom">
-      <span>© 2026 Surfside Commerce</span>
-      <span>Secure checkout. Curated collections. Fast delivery.</span>
     </div>
   </div>
 </footer>
