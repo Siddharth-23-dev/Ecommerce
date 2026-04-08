@@ -28,6 +28,14 @@ class CartController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return view('admin.cart.index', compact('carts', 'search'));
+        $summary = [
+            'lines' => (clone $carts)->total(),
+            'quantity' => (clone $carts->getCollection())->sum('quantity'),
+            'value' => $carts->getCollection()->sum(function (Cart $cart) {
+                return ((float) ($cart->product?->price ?? 0)) * (int) $cart->quantity;
+            }),
+        ];
+
+        return view('admin.cart.index', compact('carts', 'search', 'summary'));
     }
 }

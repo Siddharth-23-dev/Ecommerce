@@ -18,6 +18,16 @@ class CartController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $cartItem,
+            'count' => $cartItem->count()
+        ]);
+    }
+
+    public function count()
+    {
+        $count = Cart::where('user_id', auth()->id())->count();
+        return response()->json([
+            'status' => 'success',
+            'count' => $count
         ]);
     }
 
@@ -35,16 +45,27 @@ class CartController extends Controller
             ], 422);
         }
 
-        $cartItem = Cart::create([
-            'user_id'    => auth()->id(),
-            'product_id' => $request->product_id,
-            'quantity'   => $request->quantity,
-        ]);
+        $cartItem = Cart::where('user_id', auth()->id())
+            ->where('product_id', $request->product_id)
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->increment('quantity', $request->quantity);
+            $message = 'Product quantity updated in cart successfully';
+        } else {
+            $cartItem = Cart::create([
+                'user_id'    => auth()->id(),
+                'product_id' => $request->product_id,
+                'quantity'   => $request->quantity,
+            ]);
+            $message = 'Product added to cart successfully';
+        }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Product added to cart successfully',
+            'message' => $message,
             'data'    => $cartItem->load('product'),
+            'count'   => Cart::where('user_id', auth()->id())->count()
         ]);
     }
 

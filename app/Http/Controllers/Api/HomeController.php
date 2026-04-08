@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
@@ -18,6 +19,11 @@ class HomeController extends Controller
         $categories = collect();
         $brands = collect();
         $banners = collect();
+        $cartProductIds = [];
+
+        if (auth()->check()) {
+            $cartProductIds = Cart::where('user_id', auth()->id())->pluck('product_id')->toArray();
+        }
 
         if (Schema::hasTable('products')) {
             $products = Product::query()
@@ -40,7 +46,7 @@ class HomeController extends Controller
                 ])
                 ->latest()
                 ->get()
-                ->map(function (Product $product) {
+                ->map(function (Product $product) use ($cartProductIds) {
                     $product->image = $this->imageUrl($product->image, 'products');
 
                     if ($product->category) {
@@ -50,6 +56,8 @@ class HomeController extends Controller
                     if ($product->brand) {
                         $product->brand->image = $this->imageUrl($product->brand->image, 'brands');
                     }
+
+                    $product->is_added_in_cart = in_array($product->id, $cartProductIds);
 
                     return $product;
                 });
@@ -86,6 +94,22 @@ class HomeController extends Controller
 
         if (Schema::hasTable('banners')) {
             $banners = Banner::query()
+                ->select([
+                    'id',
+                    'badge',
+                    'title',
+                    'description',
+                    'image',
+                    'is_full_page',
+                    'primary_button_text',
+                    'primary_button_link',
+                    'secondary_button_text',
+                    'secondary_button_link',
+                    'note_label',
+                    'note_text',
+                    'sort_order',
+                    'is_active',
+                ])
                 ->where('is_active', true)
                 ->orderBy('sort_order')
                 ->orderByDesc('id')

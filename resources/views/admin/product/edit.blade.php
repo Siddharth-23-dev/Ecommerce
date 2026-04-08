@@ -85,7 +85,7 @@
 
                 <fieldset class="name">
                     <div class="body-title">SKU <span class="tf-color-1">*</span></div>
-                    <input class="flex-grow" type="number" min="0" placeholder="Enter SKU" name="sku" value="{{ old('sku', $product->sku) }}" required>
+                    <input class="flex-grow" type="text" maxlength="100" placeholder="Enter SKU" name="sku" value="{{ old('sku', $product->sku) }}" required>
                 </fieldset>
                 @error('sku') <span class="text-danger">{{ $message }}</span> @enderror
 

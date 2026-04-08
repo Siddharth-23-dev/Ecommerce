@@ -2,7 +2,9 @@
 <html dir="ltr" lang="en-US">
 <head>
   <title>@yield('title', 'My Mushroom World')</title>
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="author" content="My Mushroom World" />
   <link rel="shortcut icon" href="{{ asset('assets/website/images/favicon.ico') }}" type="image/x-icon">

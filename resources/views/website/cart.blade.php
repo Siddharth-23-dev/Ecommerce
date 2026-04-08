@@ -1,150 +1,211 @@
 @extends('layouts.app')
 
+@section('title', 'My Mushroom World | Cart')
+
 @section('content')
-    <section class="page-hero page-hero--cart">
-        <div class="container">
-            <div class="page-hero__content">
-                <span class="eyebrow">Cart</span>
-                <h1>Review your picks before checkout.</h1>
-                <p>Clean cart layout, strong product hierarchy, and a more premium ecommerce checkout experience.</p>
-            </div>
+  <section class="mwm-section">
+    <div class="container">
+      <div class="mwm-page-hero">
+        <div class="mwm-page-hero__copy">
+          <span class="mwm-kicker">Your Cart</span>
+          <h1>Review your wellness essentials before we prepare your delivery.</h1>
+          <p>
+            Experience a seamless, premium checkout flow designed to feel as natural as our ingredients.
+          </p>
         </div>
-    </section>
+        <div class="mwm-page-hero__media">
+          <img src="https://cdn.shopify.com/s/files/1/0568/9986/2610/files/LucoXSlide1.png?v=1773920411" alt="Cart hero" />
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section class="store-section">
-        <div class="container cart-layout">
+  <section class="mwm-section">
+    <div class="container">
+      <div class="mwm-shop-shell">
+        <div class="mwm-shop-main" style="grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 340px; gap: 28px; align-items: start;">
+          
+          <!-- CART ITEMS -->
+          <div id="cartItemsList" class="mwm-contact-stack">
+            <div class="mwm-empty-state">Loading your cart...</div>
+          </div>
 
-            <!-- CART LIST -->
-            <div class="cart-list-card" id="cartList">
-                <p>Loading cart...</p>
+          <!-- SUMMARY -->
+          <aside class="mwm-filter-panel" style="position: sticky; top: 110px;">
+            <h3 class="mwm-filter-title">Summary</h3>
+            <div class="mwm-filter-block">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                <span>Subtotal</span>
+                <strong id="cartSubtotal">INR 0</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                <span>Shipping</span>
+                <strong class="mwm-badge" style="background: var(--mwm-accent); color: white;">Free</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding-top: 18px; border-top: 1px solid var(--mwm-border);">
+                <span style="font-weight: 800; font-size: 18px;">Total</span>
+                <strong id="cartTotal" style="font-size: 24px; color: var(--mwm-accent-dark);">INR 0</strong>
+              </div>
             </div>
-
-            <!-- SUMMARY -->
-            <aside class="summary-card">
-                <h2>Order summary</h2>
-
-                <div class="summary-card__row">
-                    <span>Subtotal</span>
-                    <strong id="subtotal">$0</strong>
-                </div>
-
-                <div class="summary-card__row">
-                    <span>Shipping</span>
-                    <strong>Free</strong>
-                </div>
-
-                <div class="summary-card__row">
-                    <span>Tax</span>
-                    <strong id="tax">$0</strong>
-                </div>
-
-                <div class="summary-card__row summary-card__row--total">
-                    <span>Total</span>
-                    <strong id="total">$0</strong>
-                </div>
-
-                <a href="#" class="btn-primary-store summary-card__button">Proceed to checkout</a>
-                <a href="{{ route('shop') }}" class="btn-secondary-store summary-card__button">Continue shopping</a>
-            </aside>
+            
+            <div style="margin-top: 24px; display: grid; gap: 12px;">
+              <a href="{{ route('checkout') }}" id="checkoutBtn" class="mwm-btn mwm-btn--primary" style="width: 100%;">Proceed to Checkout</a>
+              <a href="{{ route('shop') }}" class="mwm-btn mwm-btn--secondary" style="width: 100%;">Continue Shopping</a>
+            </div>
+          </aside>
 
         </div>
-    </section>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            fetchCart();
-        });
-
-        /* ================= FETCH CART ================= */
-        function fetchCart() {
-            var token = localStorage.getItem("token");
-            // console.log(token);
-            fetch('http://127.0.0.1:8000/api/cart', {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Accept': 'application/json'
-                }
-            })
-                .then(res => res.json())
-                .then(result => {
-                    if (result.status === "success") {
-                        renderCart(result.data);
-                    } else {
-                        document.getElementById("cartList").innerHTML = "<p>Cart empty</p>";
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    document.getElementById("cartList").innerHTML = "<p>Error loading cart</p>";
-                });
-        }
-
-        /* ================= RENDER CART ================= */
-        function renderCart(items) {
-
-            const cartList = document.getElementById("cartList");
-
-            if (!items.length) {
-                cartList.innerHTML = "<p>Your cart is empty</p>";
-                return;
-            }
-
-            let html = "";
-            let subtotal = 0;
-            let totalTax = 0;
-
-            items.forEach(item => {
-
-                let product = item.product;
-
-                let price = parseFloat(product.price);
-                let discount = parseFloat(product.discount);
-                let tax = parseFloat(product.tax);
-                let qty = item.quantity;
-
-                let finalPrice = price - discount;
-                let itemTotal = finalPrice * qty;
-                let itemTax = tax * qty;
-
-                subtotal += itemTotal;
-                totalTax += itemTax;
-
-                html += `
-        <article class="cart-item-store">
-
-            <div class="cart-item-store__media">
-                <img src="http://127.0.0.1:8000/uploads/products/${product.image}" alt="${product.name}" />
-            </div>
-
-            <div class="cart-item-store__body">
-                <span class="product-card-store__meta">Product</span>
-                <h3>${product.name}</h3>
-                <p>SKU: ${product.sku}</p>
-            </div>
-
-            <div class="cart-item-store__meta-block">
-                <span>Qty</span>
-                <strong>${qty}</strong>
-            </div>
-
-            <div class="cart-item-store__meta-block">
-                <span>Price</span>
-                <strong>$${itemTotal.toFixed(2)}</strong>
-            </div>
-
-        </article>
-        `;
-            });
-
-            cartList.innerHTML = html;
-
-            let total = subtotal + totalTax;
-
-            document.getElementById("subtotal").innerText = "$" + subtotal.toFixed(2);
-            document.getElementById("tax").innerText = "$" + totalTax.toFixed(2);
-            document.getElementById("total").innerText = "$" + total.toFixed(2);
-        }
-    </script>
-
+      </div>
+    </div>
+  </section>
 @endsection
+
+@push('scripts')
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const cartItemsList = document.getElementById('cartItemsList');
+      const cartSubtotal = document.getElementById('cartSubtotal');
+      const cartTotal = document.getElementById('cartTotal');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const cartApiUrl = @json(url('/api/cart'));
+      
+      const currencyFormatter = new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        maximumFractionDigits: 0
+      });
+
+      // We assume the token is stored in localStorage after login
+      const token = localStorage.getItem('api_token');
+
+      async function fetchCart() {
+        const headers = {
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+        };
+
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        try {
+          const response = await fetch(cartApiUrl, { headers });
+
+          const result = await response.json();
+          if (response.ok) {
+            renderCart(result.data || []);
+          } else {
+            throw new Error(result.message || 'Failed to fetch cart');
+          }
+        } catch (error) {
+          console.error('Fetch Error:', error);
+          cartItemsList.innerHTML = `<div class="mwm-empty-state">Error loading cart. Please try again.</div>`;
+        }
+      }
+
+      function renderCart(items) {
+        if (!items.length) {
+          cartItemsList.innerHTML = `<div class="mwm-empty-state">Your cart is currently empty.</div>`;
+          cartSubtotal.innerText = currencyFormatter.format(0);
+          cartTotal.innerText = currencyFormatter.format(0);
+          checkoutBtn.classList.add('disabled');
+          checkoutBtn.style.pointerEvents = 'none';
+          checkoutBtn.style.opacity = '0.5';
+          return;
+        }
+
+        let subtotal = 0;
+        cartItemsList.innerHTML = items.map(item => {
+          const product = item.product;
+          const price = parseFloat(product.price);
+          const discount = parseFloat(product.discount || 0);
+          const finalPrice = Math.max(price - discount, 0);
+          const itemTotal = finalPrice * item.quantity;
+          subtotal += itemTotal;
+
+          return `
+            <article class="mwm-panel" style="padding: 18px; display: grid; grid-template-columns: 100px 1fr auto; gap: 20px; align-items: center;">
+              <div style="width: 100px; height: 100px; border-radius: 18px; overflow: hidden; background: #fff;">
+                <img src="${product.image ? '/uploads/products/' + product.image : '/assets/images/placeholder.png'}" 
+                     alt="${product.name}" 
+                     style="width: 100%; height: 100%; object-fit: cover;" />
+              </div>
+              <div>
+                <span class="mwm-product-card__meta">${escapeHtml(product.category?.name || 'Wellness')}</span>
+                <h3 style="font-size: 24px; margin: 4px 0;">${escapeHtml(product.name)}</h3>
+                <div class="mwm-product-card__price">
+                  <strong>${currencyFormatter.format(finalPrice)}</strong>
+                  ${discount > 0 ? `<del>${currencyFormatter.format(price)}</del>` : ''}
+                </div>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.05); padding: 5px; border-radius: 99px;">
+                  <button class="qty-btn" onclick="updateQty(${item.id}, ${item.quantity - 1})" 
+                          style="width: 32px; height: 32px; border-radius: 50%; border: 0; cursor: pointer;">-</button>
+                  <span style="font-weight: 800; min-width: 20px; text-align: center;">${item.quantity}</span>
+                  <button class="qty-btn" onclick="updateQty(${item.id}, ${item.quantity + 1})" 
+                          style="width: 32px; height: 32px; border-radius: 50%; border: 0; cursor: pointer;">+</button>
+                </div>
+                <button onclick="removeItem(${item.id})" style="border: 0; background: none; color: #cc0000; font-size: 13px; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">Remove</button>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        cartSubtotal.innerText = currencyFormatter.format(subtotal);
+        cartTotal.innerText = currencyFormatter.format(subtotal);
+        checkoutBtn.classList.remove('disabled');
+        checkoutBtn.style.pointerEvents = 'auto';
+        checkoutBtn.style.opacity = '1';
+      }
+
+      window.updateQty = async function(id, newQty) {
+        if (newQty < 1) return;
+        const headers = {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+        };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        try {
+          const response = await fetch(`${cartApiUrl}/${id}`, {
+            method: 'PATCH',
+            headers,
+            body: JSON.stringify({ quantity: newQty })
+          });
+          if (response.ok) {
+            fetchCart();
+            window.dispatchEvent(new CustomEvent('cart:updated'));
+          }
+        } catch (error) { console.error('Update Error:', error); }
+      };
+
+      window.removeItem = async function(id) {
+        if (!confirm('Remove this item?')) return;
+        const headers = {
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+        };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        try {
+          const response = await fetch(`${cartApiUrl}/${id}`, {
+            method: 'DELETE',
+            headers
+          });
+          if (response.ok) {
+            fetchCart();
+            window.dispatchEvent(new CustomEvent('cart:updated'));
+          }
+        } catch (error) { console.error('Remove Error:', error); }
+      };
+
+      function escapeHtml(value) {
+        return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+
+      fetchCart();
+    });
+  </script>
+@endpush

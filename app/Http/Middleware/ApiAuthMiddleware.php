@@ -17,10 +17,14 @@ class ApiAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (Auth::check()) {
+            return $next($request);
+        }
+
         $plainTextToken = $request->bearerToken();
 
         if (! $plainTextToken) {
-            return response()->json([
+             return response()->json([
                 'status' => 'error',
                 'message' => 'Unauthenticated.',
             ], 401);

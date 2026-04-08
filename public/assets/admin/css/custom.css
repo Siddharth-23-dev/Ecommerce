@@ -83,6 +83,366 @@ body {
     width: 20px;
     margin: 0 auto;
 }
+
+.order-toolbar-card,
+.order-table-card,
+.order-detail-hero,
+.order-info-card {
+    background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
+    border: 1px solid #e7ebf3;
+    border-radius: 20px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+
+.order-toolbar-card {
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.order-toolbar-card__header,
+.order-table-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.order-filter-form {
+    display: grid;
+    grid-template-columns: minmax(260px, 1.6fr) minmax(180px, 220px) auto auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.order-filter-form__search,
+.order-filter-form__search input,
+.order-filter-form__select,
+.order-filter-form__select select {
+    width: 100%;
+}
+
+.order-filter-form__submit,
+.order-filter-form__reset,
+.order-back-button {
+    width: auto !important;
+    min-width: 130px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 14px;
+}
+
+.order-summary-chip {
+    min-width: 120px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: #f3f7ff;
+    text-align: center;
+}
+
+.order-summary-chip span {
+    display: block;
+    font-size: 26px;
+    line-height: 1;
+    font-weight: 700;
+    color: #111827;
+}
+
+.order-summary-chip small {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.order-table-card {
+    padding: 24px;
+}
+
+.order-table-wrap > * {
+    min-width: 100%;
+}
+
+.order-table {
+    min-width: 1180px;
+}
+
+.order-table thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+}
+
+.order-table tbody td {
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+.order-id-badge,
+.order-items-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 700;
+}
+
+.order-customer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.order-meta-text {
+    color: #334155;
+    font-weight: 500;
+}
+
+.order-total {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.order-status-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.order-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.order-status-pill strong {
+    font-size: 11px;
+}
+
+.order-status-pill--pending {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.order-status-pill--confirmed {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.order-status-pill--delivered {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+.order-status-pill--cancelled {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.order-date-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.order-date-block strong {
+    color: #0f172a;
+}
+
+.order-date-block span {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.order-view-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #111827;
+    font-weight: 600;
+}
+
+.order-empty-state {
+    padding: 40px 16px !important;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.order-detail-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.order-detail-hero__main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.order-detail-hero__main h4 {
+    margin: 0;
+}
+
+.order-detail-hero__side {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.order-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.order-stat-card {
+    padding: 18px 20px;
+    border-radius: 18px;
+    border: 1px solid #e7ebf3;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.order-stat-card span {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.order-stat-card strong {
+    font-size: 28px;
+    line-height: 1;
+}
+
+.order-stat-card--pending {
+    background: #fffaf0;
+}
+
+.order-stat-card--confirmed {
+    background: #f5f9ff;
+}
+
+.order-stat-card--delivered {
+    background: #f2fcf5;
+}
+
+.order-stat-card--cancelled {
+    background: #fff5f5;
+}
+
+.order-item-action-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 160px;
+}
+
+.order-item-action-form .tf-button {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.order-detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.order-info-card {
+    padding: 24px;
+}
+
+.order-address-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.order-address-block p {
+    margin: 0;
+    color: #334155;
+}
+
+.order-notes-box {
+    margin-top: 8px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: #f8fafc;
+}
+
+.order-notes-box p {
+    margin-top: 6px;
+}
+
+.order-summary-table {
+    min-width: 100%;
+}
+
+.order-summary-table th {
+    width: 25%;
+    background: #f8fafc;
+    color: #475569;
+}
+
+@media (max-width: 1199px) {
+    .order-filter-form {
+        grid-template-columns: 1fr 220px;
+    }
+
+    .order-stats-grid,
+    .order-detail-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+    .order-toolbar-card__header,
+    .order-table-card__header,
+    .order-detail-hero,
+    .order-detail-hero__side {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .order-filter-form,
+    .order-stats-grid,
+    .order-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .order-summary-chip {
+        width: 100%;
+    }
+}
 .wg-table.table-all-user>* {
     min-width: 1260px;
 }

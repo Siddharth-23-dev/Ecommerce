@@ -10,6 +10,7 @@ use \App\Http\Controllers\Api\HomeController;
 use \App\Http\Controllers\Api\ProductController;
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -24,11 +25,14 @@ Route::get('/product', [ProductController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 
 Route::middleware('api.auth')->group(function () {
+    Route::get('/cart/count', [CartController::class, 'count']);
     Route::get('/cart', [CartController::class, 'index']);
     Route::post('/cart', [CartController::class, 'store']);
     Route::delete('/cart/clear', [CartController::class, 'clear']);
     Route::match(['put', 'patch'], '/cart/{cart}', [CartController::class, 'update']);
     Route::delete('/cart/{cart}', [CartController::class, 'destroy']);
+    
+    Route::post('/orders', [\App\Http\Controllers\Api\OrderController::class, 'store']);
 });
 
 

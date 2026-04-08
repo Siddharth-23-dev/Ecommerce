@@ -98,36 +98,22 @@
       const metricProducts = document.getElementById('shopMetricProducts');
       const metricCategories = document.getElementById('shopMetricCategories');
       const sortSelect = document.getElementById('shopSort');
-      const apiUrl = @json(url('/api/home'));
+      const homeApiUrl = @json(url('/api/home'));
+      const productApiUrl = @json(url('/api/product'));
+      const cartApiUrl = @json(url('/api/cart'));
       const shopUrl = @json(route('shop'));
+      const cartUrl = @json(route('cart'));
       const contactUrl = @json(route('contact'));
+      const productBaseUrl = @json(url('/product'));
+      const loginUrl = @json(route('login'));
+      const isGuest = @json(!auth()->check());
+      
       const currencyFormatter = new Intl.NumberFormat('en-IN', {
         style: 'currency',
         currency: 'INR',
         maximumFractionDigits: 0
       });
 
-      const fallbackProducts = [
-        { name: 'Mushroomex Weight Gainer', category: { name: 'Bestseller', slug: 'bestseller' }, brand: { name: 'Mushroomex', slug: 'mushroomex' }, price: 379, discount: 0, image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/WhatsApp_Image_2026-02-21_at_11.51.50_AM.jpg?v=1771655525' },
-        { name: 'ShilajitX Gold Resin', category: { name: 'Resin', slug: 'resin' }, brand: { name: 'ShilajitX', slug: 'shilajitx' }, price: 1849, discount: 404, image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/Front_Images_Shilajit_Gold_jpg.jpg?v=1772541072' },
-        { name: 'MENZ-X Capsule', category: { name: 'Capsules', slug: 'capsules' }, brand: { name: 'MENZ-X', slug: 'menz-x' }, price: 1750, discount: 350, image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/MenXCapsuleSlide1.png?v=1773404187' },
-        { name: 'LUCOX Capsule', category: { name: 'Wellness', slug: 'wellness' }, brand: { name: 'LUCOX', slug: 'lucox' }, price: 1499, discount: 180, image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/LucoXSlide1.png?v=1773920411' },
-        { name: 'KABZ-X Powder', category: { name: 'Digestive Care', slug: 'digestive-care' }, brand: { name: 'KABZ-X', slug: 'kabz-x' }, price: 699, discount: 90, image: 'https://cdn.shopify.com/s/files/1/0568/9986/2610/files/Front_Images_KabzX_jpg.jpg?v=1772541393' }
-      ];
-
-      const fallbackCategories = [
-        { name: 'Bestseller', slug: 'bestseller' },
-        { name: 'Resin', slug: 'resin' },
-        { name: 'Capsules', slug: 'capsules' },
-        { name: 'Digestive Care', slug: 'digestive-care' }
-      ];
-
-      const fallbackBrands = [
-        { name: 'Mushroomex', slug: 'mushroomex' },
-        { name: 'ShilajitX', slug: 'shilajitx' },
-        { name: 'MENZ-X', slug: 'menz-x' },
-        { name: 'LUCOX', slug: 'lucox' }
-      ];
 
       const query = new URLSearchParams(window.location.search);
       const state = {
@@ -152,19 +138,9 @@
       function buildUrl(nextState = {}) {
         const url = new URL(shopUrl, window.location.origin);
         const params = new URLSearchParams(window.location.search);
-
-        Object.entries({
-          category: state.category,
-          brand: state.brand,
-          ...nextState
-        }).forEach(function ([key, value]) {
-          if (value) {
-            params.set(key, value);
-          } else {
-            params.delete(key);
-          }
+        Object.entries({ category: state.category, brand: state.brand, ...nextState }).forEach(function ([key, value]) {
+          if (value) params.set(key, value); else params.delete(key);
         });
-
         const queryString = params.toString();
         return `${url.pathname}${queryString ? `?${queryString}` : ''}`;
       }
@@ -179,46 +155,29 @@
         return products.filter(function (product) {
           const categorySlug = product.category?.slug || '';
           const brandSlug = product.brand?.slug || '';
-
-          if (state.category && state.category !== categorySlug) {
-            return false;
-          }
-
-          if (state.brand && state.brand !== brandSlug) {
-            return false;
-          }
-
+          if (state.category && state.category !== categorySlug) return false;
+          if (state.brand && state.brand !== brandSlug) return false;
           return true;
         });
       }
 
       function sortProducts(items) {
         const sorted = [...items];
-
         switch (state.sort) {
-          case 'price_low':
-            sorted.sort(function (a, b) { return salePrice(a) - salePrice(b); });
-            break;
-          case 'price_high':
-            sorted.sort(function (a, b) { return salePrice(b) - salePrice(a); });
-            break;
-          case 'name':
-            sorted.sort(function (a, b) { return String(a.name || '').localeCompare(String(b.name || '')); });
-            break;
-          default:
-            break;
+          case 'price_low': sorted.sort((a, b) => salePrice(a) - salePrice(b)); break;
+          case 'price_high': sorted.sort((a, b) => salePrice(b) - salePrice(a)); break;
+          case 'name': sorted.sort((a, b) => String(a.name || '').localeCompare(String(b.name || ''))); break;
+          default: break;
         }
-
         return sorted;
       }
 
       function renderChips(container, items, key) {
         const current = state[key];
         const allLabel = key === 'category' ? 'All Categories' : 'All Brands';
-
         container.innerHTML = [
           `<a href="${buildUrl({ [key]: '' })}" class="mwm-filter-chip ${current ? '' : 'is-active'}">${allLabel}</a>`,
-          ...items.map(function (item) {
+          ...items.map(item => {
             const slug = item.slug || '';
             return `<a href="${buildUrl({ [key]: slug })}" class="mwm-filter-chip ${current === slug ? 'is-active' : ''}">${escapeHtml(item.name)}</a>`;
           })
@@ -227,35 +186,70 @@
 
       function renderSelectedFilters() {
         const chips = [];
-
         if (state.category) {
-          const item = categories.find(function (category) { return category.slug === state.category; });
+          const item = categories.find(c => c.slug === state.category);
           chips.push(`<a href="${buildUrl({ category: '' })}" class="mwm-filter-chip is-active">${escapeHtml(item?.name || state.category)} x</a>`);
         }
-
         if (state.brand) {
-          const item = brands.find(function (brand) { return brand.slug === state.brand; });
+          const item = brands.find(b => b.slug === state.brand);
           chips.push(`<a href="${buildUrl({ brand: '' })}" class="mwm-filter-chip is-active">${escapeHtml(item?.name || state.brand)} x</a>`);
         }
-
         selectedFilters.innerHTML = chips.join('');
       }
 
-      function renderProducts(items) {
-        if (!items.length) {
-          productGrid.innerHTML = `
-            <div class="mwm-empty-state">
-              No products matched the current filters. You can reset filters or contact us for support.
-              <div style="margin-top: 18px;">
-                <a href="${shopUrl}" class="mwm-link-button">Reset catalogue</a>
-                <a href="${contactUrl}" class="mwm-link-button" style="margin-left: 12px;">Contact support</a>
-              </div>
-            </div>
-          `;
+      async function addToCart(productId, btn) {
+        if (isGuest) {
+          window.location.href = loginUrl;
           return;
         }
 
-        productGrid.innerHTML = items.map(function (product) {
+        const originalText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = 'Adding...';
+
+        try {
+          const response = await fetch(cartApiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+            },
+            body: JSON.stringify({ product_id: productId, quantity: 1 })
+          });
+
+          const result = await response.json();
+          if (response.ok) {
+            btn.innerHTML = 'Added!';
+            btn.classList.add('mwm-btn--accent');
+            
+            // Dispatch event to update header count
+            window.dispatchEvent(new CustomEvent('cart:updated'));
+
+            setTimeout(() => {
+              btn.innerHTML = originalText;
+              btn.disabled = false;
+              btn.classList.remove('mwm-btn--accent');
+            }, 2000);
+          } else {
+            alert(result.message || 'Failed to add to cart');
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+          }
+        } catch (error) {
+          console.error('Cart Error:', error);
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }
+      }
+
+      function renderProducts(items) {
+        if (!items || !items.length) {
+          productGrid.innerHTML = `<div class="mwm-empty-state">No products found for the current selection.</div>`;
+          return;
+        }
+
+        productGrid.innerHTML = items.map(product => {
           const price = Number(product.price || 0);
           const discount = Number(product.discount || 0);
           const finalPrice = salePrice(product);
@@ -268,16 +262,29 @@
               <div class="mwm-product-card__body">
                 <span class="mwm-product-card__meta">${escapeHtml(product.category?.name || 'Collection')} / ${escapeHtml(product.brand?.name || 'Brand')}</span>
                 <h3>${escapeHtml(product.name)}</h3>
-                <p>Rounded premium product framing that visually matches the rebuilt mushroom storefront.</p>
+                <p>Curated wellness products for your nature-led health journey.</p>
                 <div class="mwm-product-card__price">
                   <strong>${currencyFormatter.format(finalPrice)}</strong>
                   ${discount > 0 ? `<del>${currencyFormatter.format(price)}</del>` : ''}
                 </div>
-                <a href="${contactUrl}" class="mwm-link-button">Order support</a>
+                <div style="display: flex; gap: 8px; margin-top: auto;">
+                  ${product.is_added_in_cart ? `
+                    <a href="${cartUrl}" class="mwm-btn mwm-btn--primary" style="flex: 1; min-height: 44px; font-size: 12px; display: flex; align-items: center; justify-content: center; background: var(--mwm-accent-dark); color: white; border: 0;">Go to Cart</a>
+                  ` : `
+                    <button class="mwm-btn mwm-btn--primary add-to-cart-btn" data-id="${product.id}" style="flex: 1; min-height: 44px; font-size: 12px;">Add to Cart</button>
+                  `}
+                  <a href="${productBaseUrl}/${escapeHtml(product.slug)}" class="mwm-btn mwm-btn--secondary" style="min-height: 44px; width: auto; padding: 0 14px; display: flex; align-items: center; justify-content: center;">
+                    View
+                  </a>
+                </div>
               </div>
             </article>
           `;
         }).join('');
+
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+          btn.addEventListener('click', () => addToCart(btn.dataset.id, btn));
+        });
       }
 
       function refreshView() {
@@ -297,26 +304,18 @@
       });
 
       try {
-        const response = await fetch(apiUrl, {
-          headers: {
-            'Accept': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}`);
-        }
-
-        const payload = await response.json();
-        categories = payload?.data?.categories?.length ? payload.data.categories : fallbackCategories;
-        brands = payload?.data?.brands?.length ? payload.data.brands : fallbackBrands;
-        products = payload?.data?.products?.length ? payload.data.products : fallbackProducts;
+        const response = await fetch(homeApiUrl);
+        if (!response.ok) throw new Error(`Status ${response.status}`);
+        const data = await response.json();
+        const payload = data?.data || {};
+        categories = payload.categories || [];
+        brands = payload.brands || [];
+        products = payload.products || [];
       } catch (error) {
-        console.error('Unable to load shop data:', error);
-        categories = fallbackCategories;
-        brands = fallbackBrands;
-        products = fallbackProducts;
+        console.error('Data Error:', error);
+        categories = [];
+        brands = [];
+        products = [];
       }
 
       refreshView();

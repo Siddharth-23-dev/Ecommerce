@@ -33,10 +33,10 @@ class AuthController extends Controller
             $request->session()->regenerate();
             
             if (Auth::user()->isAdmin()) {
-                 return redirect()->route('admin.dashboard');
+                 return redirect()->intended(route('admin.dashboard'));
             }
 
-            return redirect()->route('user.dashboard');
+            return redirect()->intended(route('user.dashboard'));
         }
 
         return back()->withErrors([
@@ -49,7 +49,7 @@ class AuthController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Password::defaults()],
+            'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
         ]);
 
         $user = User::create([
@@ -60,7 +60,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('user.dashboard');
+        return redirect()->intended(route('user.dashboard'));
     }
 
     public function logout(Request $request): RedirectResponse

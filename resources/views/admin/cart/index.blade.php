@@ -21,6 +21,21 @@
         </div>
 
         <div class="wg-box">
+            <div class="flex gap20 flex-wrap mb-4">
+                <div class="wg-chart-default" style="min-width: 180px; padding: 20px;">
+                    <div class="body-text">Cart Lines</div>
+                    <h4>{{ $summary['lines'] }}</h4>
+                </div>
+                <div class="wg-chart-default" style="min-width: 180px; padding: 20px;">
+                    <div class="body-text">Total Quantity</div>
+                    <h4>{{ $summary['quantity'] }}</h4>
+                </div>
+                <div class="wg-chart-default" style="min-width: 220px; padding: 20px;">
+                    <div class="body-text">Visible Cart Value</div>
+                    <h4>Rs. {{ number_format((float) $summary['value'], 2) }}</h4>
+                </div>
+            </div>
+
             <div class="flex items-center justify-between gap10 flex-wrap">
                 <div class="wg-filter flex-grow">
                     <form class="form-search" method="GET" action="{{ route('admin.carts.index') }}">
@@ -78,9 +93,9 @@
                                     </td>
                                     <td>{{ $product?->name ?? 'Product unavailable' }}</td>
                                     <td>{{ $product?->sku ?? 'N/A' }}</td>
-                                    <td>${{ number_format((float) $price, 2) }}</td>
+                                    <td>Rs. {{ number_format((float) $price, 2) }}</td>
                                     <td>{{ $cart->quantity }}</td>
-                                    <td>${{ number_format((float) $price * $cart->quantity, 2) }}</td>
+                                    <td>Rs. {{ number_format((float) $price * $cart->quantity, 2) }}</td>
                                     <td>{{ $cart->created_at?->format('d M Y, h:i A') ?? 'N/A' }}</td>
                                 </tr>
                             @empty

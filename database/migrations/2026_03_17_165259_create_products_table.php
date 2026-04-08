@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->decimal('price', 8, 2)->default(0);
             $table->decimal('discount', 8, 2)->default(0);
-            $table->bigInteger('sku')->default(0);
+            $table->string('sku', 100)->default('');
             $table->decimal('tax', 8, 2)->default(0);
             $table->foreignId('category_id')->constrained();
             $table->foreignId('brand_id')->constrained();

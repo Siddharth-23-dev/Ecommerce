@@ -1,50 +1,58 @@
 @extends('layouts.app')
 
+@section('title', 'My Mushroom World | Create Account')
+
 @section('content')
-<div class="container" style="max-width: 500px; margin: 60px auto;">
-    <div class="auth-card" style="padding: 30px; border: 1px solid #eaeaea; border-radius: 8px;">
-        <h2 style="margin-bottom: 20px; text-align: center;">Create Account</h2>
-        
-        @if ($errors->any())
-            <div style="color: red; margin-bottom: 15px;">
-                <ul style="list-style: none; padding: 0;">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+  <section class="mwm-section">
+    <div class="container" style="max-width: 600px;">
+      <div class="mwm-panel" style="padding: clamp(30px, 5vw, 60px); border-radius: 40px;">
+        <div style="text-align: center; margin-bottom: 40px;">
+          <span class="mwm-kicker">Join the Community</span>
+          <h1 style="font-size: clamp(2.4rem, 5vw, 3.8rem);">Create Account</h1>
+          <p>Start your wellness journey with premium nature-led products.</p>
+        </div>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+        <div id="errorBox" class="mwm-badge" style="display: none; background: #fee2e2; color: #991b1b; width: 100%; border-radius: 12px; padding: 12px; margin-bottom: 24px; text-align: center; font-weight: 800; list-style: none;"></div>
 
-            <div style="margin-bottom: 15px;">
-                <label for="name" style="display: block; margin-bottom: 5px;">Full Name</label>
-                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-            </div>
+        <form id="registerForm" class="mwm-contact-stack" method="POST" action="{{ route('register') }}">
+          @csrf
+          <div class="mwm-form-group">
+            <label class="mwm-form-label">Full Name</label>
+            <input id="name" name="name" type="text" class="mwm-form-input" placeholder="Your Name" value="{{ old('name') }}" required>
+            @error('name')
+              <span style="color: #cc0000; font-size: 12px; font-weight: 800;">{{ $message }}</span>
+            @enderror
+          </div>
 
-            <div style="margin-bottom: 15px;">
-                <label for="email" style="display: block; margin-bottom: 5px;">Email Address</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-            </div>
+          <div class="mwm-form-group">
+            <label class="mwm-form-label">Email Address</label>
+            <input id="email" name="email" type="email" class="mwm-form-input" placeholder="nature@wellness.com" value="{{ old('email') }}" required>
+            @error('email')
+              <span style="color: #cc0000; font-size: 12px; font-weight: 800;">{{ $message }}</span>
+            @enderror
+          </div>
 
-            <div style="margin-bottom: 15px;">
-                <label for="password" style="display: block; margin-bottom: 5px;">Password</label>
-                <input id="password" type="password" name="password" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-            </div>
+          <div class="mwm-form-group">
+            <label class="mwm-form-label">Password</label>
+            <input id="password" name="password" type="password" class="mwm-form-input" placeholder="••••••••" required>
+            @error('password')
+              <span style="color: #cc0000; font-size: 12px; font-weight: 800;">{{ $message }}</span>
+            @enderror
+          </div>
 
-            <div style="margin-bottom: 20px;">
-                <label for="password_confirmation" style="display: block; margin-bottom: 5px;">Confirm Password</label>
-                <input id="password_confirmation" type="password" name="password_confirmation" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
-            </div>
+          <div class="mwm-form-group">
+            <label class="mwm-form-label">Confirm Password</label>
+            <input id="password_confirmation" name="password_confirmation" type="password" class="mwm-form-input" placeholder="••••••••" required>
+          </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <button type="submit" class="btn-primary-store" style="padding: 10px 20px; border: none; cursor: pointer;">
-                    Register
-                </button>
-                <a href="{{ route('login') }}" style="color: #666; text-decoration: underline;">Already have an account?</a>
+          <div style="margin-top: 20px; display: grid; gap: 16px;">
+            <button type="submit" class="mwm-btn mwm-btn--primary" style="width: 100%;">Create Account</button>
+            <div style="text-align: center;">
+              <p style="font-size: 14px; color: var(--mwm-text-soft);">Already have an account? <a href="{{ route('login') }}" style="color: var(--mwm-accent-dark); font-weight: 800; text-decoration: underline;">Sign in here</a></p>
             </div>
+          </div>
         </form>
+      </div>
     </div>
-</div>
+  </section>
 @endsection

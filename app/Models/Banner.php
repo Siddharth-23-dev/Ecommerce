@@ -11,6 +11,7 @@ class Banner extends Model
         'title',
         'description',
         'image',
+        'is_full_page',
         'primary_button_text',
         'primary_button_link',
         'secondary_button_text',
@@ -23,6 +24,7 @@ class Banner extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'is_full_page' => 'boolean',
         'sort_order' => 'integer',
     ];
 }

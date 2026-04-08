@@ -178,6 +178,32 @@ body.mwm-site main {
 .mwm-shop-toolbar,
 .mwm-contact-card,
 .mwm-contact-form,
+.mwm-form-input {
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--mwm-surface);
+  border: 1px solid var(--mwm-border);
+  border-radius: var(--mwm-radius-lg);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--mwm-text);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 2px 4px rgba(83, 58, 31, 0.03);
+}
+
+.mwm-form-input:focus {
+  outline: none;
+  border-color: var(--mwm-accent);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(127, 143, 73, 0.12), inset 0 2px 4px rgba(83, 58, 31, 0.02);
+  transform: translateY(-1px);
+}
+
+.mwm-form-input::placeholder {
+  color: #a0907d;
+  opacity: 0.7;
+}
+
 .mwm-faq-card,
 .mwm-cta-panel,
 .mwm-filter-metric {
@@ -384,6 +410,34 @@ body.mwm-site main {
     linear-gradient(135deg, rgba(255, 251, 245, 0.92), rgba(244, 231, 206, 0.88)),
     linear-gradient(135deg, rgba(127, 143, 73, 0.16), rgba(184, 138, 56, 0.12));
   box-shadow: 0 36px 70px rgba(83, 58, 31, 0.13);
+}
+
+.mwm-hero--full {
+  display: block;
+  min-height: 80vh;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.mwm-hero--full .mwm-hero__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80vh;
+  padding: clamp(40px, 8vw, 100px);
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--mwm-radius-xl);
+}
+
+.mwm-hero--full h1 {
+  max-width: 800px;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: 0.9;
 }
 
 .mwm-hero::before,

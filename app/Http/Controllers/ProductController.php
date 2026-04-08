@@ -94,7 +94,7 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'price' => 'required|numeric|min:0',
             'discount' => 'nullable|numeric|min:0',
-            'sku' => 'required|integer|min:0',
+            'sku' => 'required|string|max:100',
             'tax' => 'nullable|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',

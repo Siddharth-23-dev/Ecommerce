@@ -1,88 +1,45 @@
 @extends('layouts.app')
 
+@section('title', 'My Mushroom World | Login')
+
 @section('content')
-    <div class="container" style="max-width: 500px; margin: 60px auto;">
-        <div class="auth-card" style="padding: 30px; border: 1px solid #eaeaea; border-radius: 8px;">
-
-            <h2 style="margin-bottom: 20px; text-align: center;">Login</h2>
-
-            <div id="errorBox" style="color:red; margin-bottom:15px;"></div>
-
-            <form id="loginForm">
-                @csrf
-
-                <div style="margin-bottom: 15px;">
-                    <label>Email Address</label>
-                    <input id="email" type="email" required
-                           style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
-                </div>
-
-                <div style="margin-bottom: 20px;">
-                    <label>Password</label>
-                    <input id="password" type="password" required
-                           style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px;">
-                </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <button type="submit"
-                            style="padding:10px 20px; border:none; cursor:pointer;">
-                        Login
-                    </button>
-
-                    <a href="{{ route('register') }}"
-                       style="color:#666; text-decoration:underline;">
-                        Don't have an account?
-                    </a>
-                </div>
-            </form>
+  <section class="mwm-section">
+    <div class="container" style="max-width: 600px;">
+      <div class="mwm-panel" style="padding: clamp(30px, 5vw, 60px); border-radius: 40px;">
+        <div style="text-align: center; margin-bottom: 40px;">
+          <span class="mwm-kicker">Welcome Back</span>
+          <h1 style="font-size: clamp(2.4rem, 5vw, 3.8rem);">Account Login</h1>
+          <p>Login to manage your wellness orders and preferences.</p>
         </div>
+
+        <div id="errorBox" class="mwm-badge" style="display: none; background: #fee2e2; color: #991b1b; width: 100%; border-radius: 12px; padding: 12px; margin-bottom: 24px; text-align: center; font-weight: 800;"></div>
+
+        <form id="loginForm" class="mwm-contact-stack" method="POST" action="{{ route('login') }}">
+          @csrf
+          <div class="mwm-form-group">
+            <label class="mwm-form-label">Email Address</label>
+            <input id="email" name="email" type="email" class="mwm-form-input" placeholder="nature@wellness.com" value="{{ old('email') }}" required>
+            @error('email')
+              <span style="color: #cc0000; font-size: 12px; font-weight: 800;">{{ $message }}</span>
+            @enderror
+          </div>
+
+          <div class="mwm-form-group">
+            <label class="mwm-form-label">Password</label>
+            <input id="password" name="password" type="password" class="mwm-form-input" placeholder="••••••••" required>
+            @error('password')
+              <span style="color: #cc0000; font-size: 12px; font-weight: 800;">{{ $message }}</span>
+            @enderror
+          </div>
+
+          <div style="margin-top: 20px; display: grid; gap: 16px;">
+            <button type="submit" class="mwm-btn mwm-btn--primary" style="width: 100%;">Sign In</button>
+            <div style="text-align: center;">
+              <p style="font-size: 14px; color: var(--mwm-text-soft);">Don't have an account? <a href="{{ route('register') }}" style="color: var(--mwm-accent-dark); font-weight: 800; text-decoration: underline;">Create one here</a></p>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            let email = document.getElementById('email').value;
-            let password = document.getElementById('password').value;
-            let errorBox = document.getElementById('errorBox');
-
-            errorBox.innerHTML = "";
-
-            try {
-                let response = await fetch('http://127.0.0.1:8000/api/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password
-                    })
-                });
-
-                let data = await response.json();
-
-                if (response.ok && data.status === "success") {
-
-                    // ✅ Save token & user
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-
-                    alert('Login successful');
-
-                    // redirect after login
-                    window.location.href = "/dashboard";
-
-                } else {
-                    errorBox.innerHTML = data.message || "Invalid credentials";
-                }
-
-            } catch (error) {
-                console.error(error);
-                errorBox.innerHTML = "Server error. Try again.";
-            }
-        });
-    </script>
-
+  </section>
 @endsection
