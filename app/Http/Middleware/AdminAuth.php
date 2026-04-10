@@ -12,7 +12,7 @@ class AdminAuth
 {
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        if (! Auth::check() || ! Auth::user()->isAdmin()) {
+        if (! Auth::check() || ! Auth::user()->isAdmin() || ! Auth::user()->isSuperAdmin) {
             return redirect()->route('admin.login');
         }
 

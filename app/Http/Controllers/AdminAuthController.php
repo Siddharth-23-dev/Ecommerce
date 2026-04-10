@@ -28,7 +28,7 @@ class AdminAuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            if (Auth::user()->isAdmin()) {
+            if (Auth::user()->isAdmin() || Auth::user()->isSuperAdmin()) {
                 return redirect()->route('admin.dashboard');
             }
             Auth::logout();

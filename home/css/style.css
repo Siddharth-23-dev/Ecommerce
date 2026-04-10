@@ -1,0 +1,196 @@
+/* .birdchime-hide-node {display: none }.birdchime-disable-node { cursor: not-allowed;pointer-events: none;  background-color:#ffffff;}button.birdchime-disable-node {background-image: none;border: none;box-shadow: none;opacity: 0.4;background-color: red;}button#checkout, button[name="checkout"], a[href="/checkout"] {pointer-events: none;opacity: 0.4;}.shopify-payment-button {display: none !important } */
+.collection .grid__item:has(a[href*="partial-payment"]) {
+  display: none;
+}
+.grid-view-item:has(
+  .grid-view-item__title:first-child:matches(:first-letter, ::before):contains(
+      "Partial Payment"
+    )
+) {
+  display: none !important;
+}
+
+.grid-view-item:has(.grid-view-item__title[data-title^="Partial Payment"]) {
+  display: none !important;
+}
+
+.sf__col-item:has([data-product-handle*="partial-payment"]) {
+  display: none !important;
+}
+
+.grid__item:has(a[href*="partial-payment"]) {
+  display: none !important;
+}
+
+.product-grid__item:has(a[href*="partial-payment"]) {
+  display: none !important;
+}
+.sf_pcard a.sf_pcard-name[href*="partial-payment"] {
+  display: none !important;
+}
+
+.sf_pcard a.sf_pcard-name[href*="partial-payment"] {
+  display: none !important;
+}
+.sf_pcard a.sf_pcard-name[href*="partial-payment"] {
+  display: none !important;
+}
+.sf_pcard a.sf_pcard-name[href*="partial-payment"] {
+  display: none !important;
+}
+
+.sf_pcard a.sf_pcard-name[href*="partial-payment"] {
+  display: none !important;
+}
+.sf_pcard a.sf_pcard-name[href*="partial-payment"] {
+  display: none !important;
+}
+
+/* Hide all partial payment related products */
+.gitem:has(.grid_title a[href*="partial-payment"]),
+.gitem:has(.grid_lnk[aria-label*="Partial Payment"]),
+.gitem:has(.grid_title a:contains("Partial Payment")) {
+  display: none !important;
+}
+
+/* Fallback for text content matching */
+.grid_title a[href*="partial-payment-for"] {
+  display: none !important;
+}
+
+.gitem .grid_bx:has(a[href*="partial-payment-for"]) {
+  display: none !important;
+}
+/* Hide by URL containing "partial-payment" */
+.product-card[data-handle*="partial-payment"] {
+  display: none !important;
+}
+
+/* OR hide by title text (less reliable) */
+.product-card__name a[href*="partial-payment"] {
+  display: none !important;
+}
+
+/* CSS to hide partial payment products */
+
+/* Hide by URL containing "partial-payment" */
+a[href*="partial-payment"] {
+  display: none !important;
+}
+
+/* Hide parent containers of partial payment links */
+.resource-list__item:has(a[href*="partial-payment"]) {
+  display: none !important;
+}
+
+.col-lg-4:has(a[href*="partial-payment"]) {
+  display: none !important;
+}
+
+.product-wrapper:has(a[href*="partial-payment"]) {
+  display: none !important;
+}
+
+.product-card:has(a[href*="partial-payment"]) {
+  display: none !important;
+}
+
+/* Hide by alt text containing "Partial Payment" */
+img[alt*="Partial Payment"] {
+  display: none !important;
+}
+
+.resource-list__item:has(img[alt*="Partial Payment"]) {
+  display: none !important;
+}
+
+.col-lg-4:has(img[alt*="Partial Payment"]) {
+  display: none !important;
+}
+
+/* Hide by aria-label containing "Partial Payment" */
+[aria-label*="Partial Payment"] {
+  display: none !important;
+}
+
+.resource-list__item:has([aria-label*="Partial Payment"]) {
+  display: none !important;
+}
+
+.col-lg-4:has([aria-label*="Partial Payment"]) {
+  display: none !important;
+}
+
+/* Hide by data attributes containing "partial-payment" */
+[data-product-handle*="partial-payment"] {
+  display: none !important;
+}
+
+.resource-list__item:has([data-product-handle*="partial-payment"]) {
+  display: none !important;
+}
+
+.col-lg-4:has([data-product-handle*="partial-payment"]) {
+  display: none !important;
+}
+
+/* Hide by title attributes */
+[title*="Partial Payment"] {
+  display: none !important;
+}
+
+.resource-list__item:has([title*="Partial Payment"]) {
+  display: none !important;
+}
+
+/* For older browsers that don't support :has() */
+/* Target specific patterns in URLs */
+a[href*="partial-payment-for-062"] {
+  display: none !important;
+}
+
+a[href*="partial-payment-for-3d"] {
+  display: none !important;
+}
+
+a[href*="partial-payment-for-wired"] {
+  display: none !important;
+}
+
+a[href*="partial-payment-for-illumoria"] {
+  display: none !important;
+}
+
+a[href*="partial-payment-for-nazra"] {
+  display: none !important;
+}
+
+/* Hide elements with specific classes that contain partial payment info */
+.product-title:has-text("Partial Payment"),
+.popup_cart_title:has-text("Partial Payment"),
+h3:has-text("Partial Payment") {
+  display: none !important;
+}
+
+/* Target specific price patterns for partial payments */
+.product-price:has(.price:contains("Rs. 211.50")),
+.product-price:has(.price:contains("Rs. 689.00")),
+.product-price:has(.price:contains("Rs. 265.00")),
+.product-price:has(.price:contains("Rs. 99.90")),
+.product-price:has(.price:contains("Rs. 89.90")) {
+  opacity: 0.3 !important;
+  pointer-events: none !important;
+}
+
+/* For Shopify product cards */
+.ltn__product-item:has(a[href*="partial-payment"]) {
+  display: none !important;
+}
+
+/* Alternative method using visibility instead of display */
+.resource-list__item:has(a[href*="partial-payment"]) {
+  visibility: hidden !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}

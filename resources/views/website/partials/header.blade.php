@@ -1,91 +1,86 @@
-<div class="mwm-topline">
-  <div class="container mwm-topline__inner">
-    <span>Nature's Finest, Crafted for You</span>
-    <span>Ayurvedic inspired wellness storefront</span>
-  </div>
-</div>
 
-<header class="mwm-header">
-  <div class="container">
-    <div class="mwm-header__shell">
-      <a href="{{ route('home') }}" class="mwm-brand" aria-label="My Mushroom World home">
-        <span class="mwm-brand__seal">MW</span>
-        <span class="mwm-brand__text">
-          <span class="mwm-brand__eyebrow">Power Of Mushrooms</span>
-          <span class="mwm-brand__title">My Mushroom World</span>
-        </span>
-      </a>
 
-      <nav class="mwm-nav" aria-label="Primary navigation">
-        <a href="{{ route('home') }}" class="mwm-nav__link {{ request()->routeIs('home') ? 'is-active' : '' }}">Home</a>
-        <a href="{{ route('shop') }}" class="mwm-nav__link {{ request()->routeIs('shop') ? 'is-active' : '' }}">Shop</a>
-        <a href="{{ route('about') }}" class="mwm-nav__link {{ request()->routeIs('about') ? 'is-active' : '' }}">About Us</a>
-        <a href="{{ route('contact') }}" class="mwm-nav__link {{ request()->routeIs('contact') ? 'is-active' : '' }}">Contact Us</a>
-      </nav>
+<header class="w-100">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm w-100 m-0 p-0 border-0">
+        <div class="container-fluid px-4 py-3">
 
-      <div class="mwm-header__actions">
-        <a href="{{ route('cart') }}" class="mwm-header__action" style="position: relative; display: flex; align-items: center; gap: 8px;">
-          Cart
-          <span id="cartCountBadge" class="mwm-badge" style="display: none; background: var(--mwm-accent); color: white; border-radius: 99px; min-width: 20px; height: 20px; font-size: 11px; padding: 0 6px; align-items: center; justify-content: center; font-weight: 800;">0</span>
-        </a>
+            <!-- Brand -->
+            <a href="{{ route('home') }}" class="navbar-brand d-flex align-items-center gap-3 m-0">
+                <div class="bg-success text-white fw-bold d-flex justify-content-center align-items-center"
+                     style="width:55px; height:55px; font-size:20px;">
+                    MW
+                </div>
+                <div>
+                    <small class="text-muted d-block" style="font-size:12px;">Power Of Mushrooms</small>
+                    <span class="fw-bold fs-5 text-dark">My Mushroom World</span>
+                </div>
+            </a>
 
-        @guest
-          <a href="{{ route('login') }}" class="mwm-header__action">Login</a>
-          <a href="{{ route('register') }}" class="mwm-header__action mwm-header__action--accent">Sign Up</a>
-        @else
-          @if(Auth::user()->isAdmin())
-            <a href="{{ route('admin.dashboard') }}" class="mwm-header__action">Admin</a>
-          @else
-            <a href="{{ route('user.dashboard') }}" class="mwm-header__action">Dashboard</a>
-          @endif
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-          <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="mwm-header__action">Logout</button>
-          </form>
-        @endguest
-      </div>
+            <!-- Navbar Content -->
+            <div class="collapse navbar-collapse justify-content-between" id="mainNavbar">
 
-      <button
-        type="button"
-        class="mwm-menu-toggle"
-        data-menu-toggle
-        data-target="#mobileMenu"
-        aria-expanded="false"
-        aria-controls="mobileMenu"
-        aria-label="Toggle menu"
-      >
-        <span></span>
-      </button>
-    </div>
+                <!-- Menu -->
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('home') ? 'active fw-bold text-success' : '' }}"
+                           href="{{ route('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('shop') ? 'active fw-bold text-success' : '' }}"
+                           href="{{ route('shop') }}">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('about') ? 'active fw-bold text-success' : '' }}"
+                           href="{{ route('about') }}">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('contact') ? 'active fw-bold text-success' : '' }}"
+                           href="{{ route('contact') }}">Contact Us</a>
+                    </li>
+                </ul>
 
-    <nav id="mobileMenu" class="mwm-mobile-nav" aria-label="Mobile navigation">
-      <a href="{{ route('home') }}" class="mwm-mobile-nav__link {{ request()->routeIs('home') ? 'is-active' : '' }}">Home</a>
-      <a href="{{ route('shop') }}" class="mwm-mobile-nav__link {{ request()->routeIs('shop') ? 'is-active' : '' }}">Shop</a>
-      <a href="{{ route('about') }}" class="mwm-mobile-nav__link {{ request()->routeIs('about') ? 'is-active' : '' }}">About Us</a>
-      <a href="{{ route('contact') }}" class="mwm-mobile-nav__link {{ request()->routeIs('contact') ? 'is-active' : '' }}">Contact Us</a>
-      <a href="{{ route('cart') }}" class="mwm-mobile-nav__link" style="display: flex; align-items: center; justify-content: space-between;">
-        <span>Cart</span>
-        <span id="mobileCartCountBadge" class="mwm-badge" style="display: none; background: var(--mwm-accent); color: white; border-radius: 99px; min-width: 24px; height: 24px; font-size: 12px; padding: 0 8px; align-items: center; justify-content: center; font-weight: 800;">0</span>
-      </a>
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-3">
 
-      @guest
-        <a href="{{ route('login') }}" class="mwm-mobile-nav__link">Login</a>
-        <a href="{{ route('register') }}" class="mwm-mobile-nav__link">Sign Up</a>
-      @else
-        @if(Auth::user()->isAdmin())
-          <a href="{{ route('admin.dashboard') }}" class="mwm-mobile-nav__link">Admin</a>
-        @else
-          <a href="{{ route('user.dashboard') }}" class="mwm-mobile-nav__link">Dashboard</a>
-        @endif
+                    <!-- Cart -->
+                    <a href="{{ route('cart') }}" class="btn btn-outline-success position-relative rounded-0">
+                        Cart
+                        <span id="cartCountBadge"
+                              class="position-absolute top-0 start-100 translate-middle badge bg-danger d-none rounded-pill">
+                            0
+                        </span>
+                    </a>
 
-        <form action="{{ route('logout') }}" method="POST">
-          @csrf
-          <button type="submit" class="mwm-mobile-nav__link">Logout</button>
-        </form>
-      @endguest
+                    @guest
+                        <a href="{{ route('login') }}" class="btn btn-outline-dark rounded-0">Login</a>
+                        <a href="{{ route('register') }}" class="btn btn-success rounded-0">Sign Up</a>
+                    @else
+                        @if(Auth::user()->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-primary rounded-0">Admin</a>
+                        @else
+                            <a href="{{ route('user.dashboard') }}" class="btn btn-outline-primary rounded-0">Dashboard</a>
+                        @endif
+
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger rounded-0">Logout</button>
+                        </form>
+                    @endguest
+
+                </div>
+            </div>
+        </div>
     </nav>
-  </div>
 </header>
 
 <script>
@@ -94,13 +89,13 @@
       const desktopBadge = document.getElementById('cartCountBadge');
       const mobileBadge = document.getElementById('mobileCartCountBadge');
       const countUrl = @json(url('/api/cart/count'));
-      
+
       try {
         const response = await fetch(countUrl, {
           headers: { 'Accept': 'application/json' }
         });
         const result = await response.json();
-        
+
         if (response.ok && result.count > 0) {
           if (desktopBadge) {
             desktopBadge.innerText = result.count;
